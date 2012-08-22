@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse settings file
+.settings
+.metadata
+
+# Ignore temporary files
+/tmp
+/log/*.log
+*.lock
