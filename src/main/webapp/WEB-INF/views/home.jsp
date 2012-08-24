@@ -117,7 +117,7 @@
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/describe",
+					url : "/cloudidentity/describe",
 					beforeSend : function() {
 					},
 					success : function(data) {
@@ -131,15 +131,9 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = 'An error occurred when the attemping an ajax request for \n'						
-							+	'Response Text: ' + jqXHR.responseText + '<br />'
-				            + 'Status: ' + jqXHR.status + '<br />'
-				            + 'Status Text: ' + jqXHR.statusText + '<br /><hr>'
-				            + 'Data: ' + textStatus.data + '<br />'
-				            + 'Data Types: ' + textStatus.dataTypes + '<br />'
-				            + 'Type: ' + textStatus.type + '<br />'
-				            + 'Url: ' + textStatus.url + '<br /><hr>'
-				            + 'Exception: ' + errorThrown + '<br />';					
+						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
+							 + ", Exception :" + errorThrown +"]";
+							 
 							$("#error_message_box").html(errorStr);
 							$("#error_message_box").show();
 					},
@@ -155,7 +149,7 @@
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/up",
+					url : "./cloudidentity/up",
 					beforeSend : function() {
 					},
 					success : function(data) {
@@ -169,17 +163,12 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = 'An error occurred when the attemping an ajax request for \n'						
-						+	'Response Text: ' + jqXHR.responseText + '<br />'
-			            + 'Status: ' + jqXHR.status + '<br />'
-			            + 'Status Text: ' + jqXHR.statusText + '<br /><hr>'
-			            + 'Data: ' + textStatus.data + '<br />'
-			            + 'Data Types: ' + textStatus.dataTypes + '<br />'
-			            + 'Type: ' + textStatus.type + '<br />'
-			            + 'Url: ' + textStatus.url + '<br /><hr>'
-			            + 'Exception: ' + errorThrown + '<br />';					
+						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
+						 + ", Exception :" + errorThrown +"]";
+						 
 						$("#error_message_box").html(errorStr);
 						$("#error_message_box").show();
+
 					},
 					always : function() {
 					}
@@ -193,7 +182,7 @@
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/list",
+					url : "./cloudidentity/list",
 					beforeSend : function() {
 					},
 					success : function(data) {
@@ -201,14 +190,10 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request for \n"
-								+ jqXHR
-								+ "\n"
-								+ "status :"
-								+ textStatus
-								+ "\n"
-								+ "error  :" + errorThrown;
-						$("#error_message_box").prepend(errorStr);
+						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
+						 + ", Exception :" + errorThrown +"]";
+						 
+						$("#error_message_box").html(errorStr);
 						$("#error_message_box").show();
 					},
 					always : function() {
@@ -226,7 +211,7 @@
 					type : "POST",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/stick",
+					url : "./cloudidentity/stick",
 					data : instid,
 					beforeSend : function() {
 					},
@@ -235,16 +220,11 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request for \n"
-								+ jqXHR
-								+ "\n"
-								+ "status :"
-								+ textStatus
-								+ "\n"
-								+ "error  :" + errorThrown;
-						$("#error_message_box").prepend(errorStr);
+						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
+						 + ", Exception :" + errorThrown +"]";
+						 
+						$("#error_message_box").html(errorStr);
 						$("#error_message_box").show();
-					},
 					always : function() {
 					}
 				});
@@ -258,7 +238,7 @@
 					type : "POST",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/run",
+					url : "/run",
 					data : JSON.stringify("ami-00067852"),
 					contentType : 'application/json',
 					beforeSend : function() {
@@ -268,15 +248,12 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request for \n"
-								+ jqXHR
-								+ "\n"
-								+ "status :"
-								+ textStatus
-								+ "\n"
-								+ "error  :" + errorThrown;
-						$("#error_message_box").prepend(errorStr);
-						$("#error_message_box").show();
+						var errorStr = 'An error occurred when the attemping an ajax request.<br />'						
+							+ 'Status: ' + jqXHR.status  + 'Status Text: ' + jqXHR.statusText + '<br />'
+				            + 'Exception: ' + errorThrown + '<br />';					
+							$("#error_message_box").html(errorStr);
+							$("#error_message_box").show();
+
 					},
 					always : function() {
 					}
@@ -291,7 +268,7 @@
 					type : "POST",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/start",
+					url : "/start",
 					data : instid,
 					beforeSend : function() {
 					},
@@ -300,15 +277,12 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request for \n"
-								+ jqXHR
-								+ "\n"
-								+ "status :"
-								+ textStatus
-								+ "\n"
-								+ "error  :" + errorThrown;
-						$("#error_message_box").prepend(errorStr);
-						$("#error_message_box").show();
+						var errorStr = 'An error occurred when the attemping an ajax request.<br />'						
+							+ 'Status: ' + jqXHR.status  + 'Status Text: ' + jqXHR.statusText + '<br />'
+				            + 'Exception: ' + errorThrown + '<br />';					
+							$("#error_message_box").html(errorStr);
+							$("#error_message_box").show();
+
 					},
 					always : function() {
 					}
@@ -324,7 +298,7 @@
 					type : "POST",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/stop",
+					url : "/cloudidentity/stop",
 					data : instid,
 					beforeSend : function() {
 					},
@@ -333,15 +307,12 @@
 					error : function(jqXHR, textStatus, errorThrown) {
 						$('#loading').fadeOut();
 						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request for \n"
-								+ jqXHR
-								+ "\n"
-								+ "status :"
-								+ textStatus
-								+ "\n"
-								+ "error  :" + errorThrown;
-						$("#error_message_box").prepend(errorStr);
-						$("#error_message_box").show();
+						var errorStr = 'An error occurred when the attemping an ajax request.<br />'						
+							+ 'Status: ' + jqXHR.status  + 'Status Text: ' + jqXHR.statusText + '<br />'
+				            + 'Exception: ' + errorThrown + '<br />';					
+							$("#error_message_box").html(errorStr);
+							$("#error_message_box").show();
+
 					},
 					always : function() {
 					}
