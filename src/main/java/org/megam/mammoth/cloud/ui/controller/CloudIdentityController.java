@@ -2,6 +2,8 @@ package org.megam.mammoth.cloud.ui.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -43,7 +46,7 @@ public class CloudIdentityController<C> {
 		String output = engine.version(id);
 		return output;
 	}
-	
+
 	public @RequestMapping(value = "/cloudidentity/describe", method = RequestMethod.GET)
 	@ResponseBody
 	String describe() {
@@ -60,12 +63,33 @@ public class CloudIdentityController<C> {
 
 	}
 
-	public @RequestMapping(value = "/cloudidentitys", method = RequestMethod.GET)
+	public @RequestMapping(value = "/cloudidentity/list/{instid}", method = RequestMethod.GET)
 	@ResponseBody
-	String list(@Valid @RequestBody String instid) {
+	String list(@Valid @RequestParam(value="instid", required=false) String instid) {
+		logger.info("IN LIST METHOD...................." + instid);
 		ComputeCloudOutput<C> output = null;
+		
 		try {
+			
 			output = engine.list(new ComputeCloudInput<String>(instid));
+			
+		} catch (ComputeEngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return engine.builder(output).asJson(output);
+	}
+	
+	public @RequestMapping(value = "/cloudidentity/log/{instid}", method = RequestMethod.GET)
+	@ResponseBody
+	String log(@Valid @RequestParam(value="instid", required=false) String instid) {
+		logger.info("IN LIST METHOD...................." + instid);
+		ComputeCloudOutput<C> output = null;
+		
+		try {
+			
+			output = engine.log(new ComputeCloudInput<String>(instid));
+			
 		} catch (ComputeEngineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -14,6 +14,9 @@
 				<li><a href="#" id="listallrawidentity"
 					onclick="listAllRawIdentity()">List<i
 						class="icon-chevron-right"></i></a></li>
+				<li><a href="#" id="list"
+					onclick="log()">List<i
+						class="icon-chevron-right"></i></a></li>
 			</ul>
 		</div>
 		<div class="span9">
@@ -187,13 +190,14 @@
 	}
 
 	function listAllRawIdentity() {
-
+                var instid="i-c8599f9c";
 		$
 				.ajax({
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "/mammoth/cloudidentity/list",
+					url : "/mammoth/cloudidentity/list/{instid}",
+					
 					beforeSend : function() {
 					},
 					success : function(data) {
@@ -348,6 +352,39 @@
 				});
 
 	}
+	
+	function log() {
+        var instid="i-c8599f9c";
+$
+		.ajax({
+			type : "GET",
+			dataType : "json",
+			async : true,
+			url : "/mammoth/cloudidentity/log/{instid}",
+			
+			beforeSend : function() {
+			},
+			success : function(data) {
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				$('#loading').fadeOut();
+				spinner.stop();
+				var errorStr = "An error occurred when the attemping an ajax request for \n"
+						+ jqXHR
+						+ "\n"
+						+ "status :"
+						+ textStatus
+						+ "\n"
+						+ "error  :" + errorThrown;
+				$("#error_message_box").prepend(errorStr);
+				$("#error_message_box").show();
+			},
+			always : function() {
+			}
+
+		});
+return false;
+}
 
 
 	

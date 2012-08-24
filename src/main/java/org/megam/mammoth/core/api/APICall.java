@@ -15,7 +15,7 @@ public class APICall {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		formatter.format("-10s%3s%s%n", apistr, " - ",desc);
+		formatter.format("-10s%3s%s%n", apistr, " - ", desc);
 		return strbd.toString();
 	}
 
