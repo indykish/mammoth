@@ -11,7 +11,5 @@ public interface APICapability {
 	public String version(String versionid);
 
 	public List<APICall> describe(String apicall);
-	
-	
 
 }

@@ -10,8 +10,6 @@ import org.megam.mammoth.cloud.compute.info.ComputeCloudOutput;
 
 public class AmazonEC2Builder<T> extends AbstractComputeCloudBuilder {
 
-
-
 	public AmazonEC2Builder(ComputeCloudOutput<T> tempOutput) {
 		super(tempOutput);
 	}
@@ -31,7 +29,7 @@ public class AmazonEC2Builder<T> extends AbstractComputeCloudBuilder {
 		}
 		return instanceList;
 	}
-
+	
 	protected CloudInstance stick() {
 		CloudInstance instance = null;
 		if (output.get() != null) {
@@ -64,13 +62,12 @@ public class AmazonEC2Builder<T> extends AbstractComputeCloudBuilder {
 		return instance;
 	}
 
-	protected String log() {
-		String logOutput = "";
+	protected List<String> log() {
+		List<String> logOutput = new ArrayList<String>();
 		if (output.get() != null) {
-
+           
 		}
 		return logOutput;
 	}
 
-	
 }

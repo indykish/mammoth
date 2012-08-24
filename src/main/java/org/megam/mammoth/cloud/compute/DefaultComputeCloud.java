@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 
 @Service("computeCloud")
-public class DefaultComputeCloud implements CloudSourceable  {
+public class DefaultComputeCloud implements CloudSourceable {
 
 	final Logger logger = LoggerFactory.getLogger(DefaultComputeCloud.class);
 
@@ -35,7 +35,8 @@ public class DefaultComputeCloud implements CloudSourceable  {
 		if (engine == null) {
 			engine = instantiateClass(computeCloudSource
 					.getComputeEngineClassName());
-			((CloudSourceable) engine).setComputeCloudSource(computeCloudSource);
+			((CloudSourceable) engine)
+					.setComputeCloudSource(computeCloudSource);
 		}
 		if (this.engine == null)
 			throw new IllegalStateException(

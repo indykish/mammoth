@@ -8,6 +8,7 @@ public class ComputeCloudOutput<T extends Object> {
 		out = tempOut;
 	}
 
+
 	public T get() {
 		return out;
 	}
