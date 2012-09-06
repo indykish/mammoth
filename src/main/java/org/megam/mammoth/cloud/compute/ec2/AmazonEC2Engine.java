@@ -2,16 +2,14 @@ package org.megam.mammoth.cloud.compute.ec2;
 
 import java.util.ArrayList;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.INPUT_STREAM;
-
 import org.megam.mammoth.cloud.compute.AbstractComputeCloudEngine;
 import org.megam.mammoth.cloud.compute.ComputeCloudBuilder;
 import org.megam.mammoth.cloud.compute.exception.ComputeEngineException;
+import org.megam.mammoth.cloud.compute.info.BasicCloudComputeSource;
 import org.megam.mammoth.cloud.compute.info.CloudInstance;
 import org.megam.mammoth.cloud.compute.info.ComputeCloudInput;
 import org.megam.mammoth.cloud.compute.info.ComputeCloudOutput;
@@ -20,26 +18,21 @@ import org.megam.mammoth.cloud.ui.controller.CloudIdentityController;
 import org.megam.mammoth.core.api.APICall;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.autoscaling.model.Instance;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
-import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeRegionsRequest;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.GetConsoleOutputRequest;
 import com.amazonaws.services.ec2.model.GetConsoleOutputResult;
-import com.amazonaws.services.ec2.model.Image;
-import com.amazonaws.services.ec2.model.InstanceState;
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
@@ -50,10 +43,12 @@ import com.amazonaws.services.ec2.model.StopInstancesResult;
 
 public class AmazonEC2Engine<C extends Object> extends
 		AbstractComputeCloudEngine {
+
 	final Logger logger = LoggerFactory
 			.getLogger(CloudIdentityController.class);
+
 	private AmazonEC2Client client;
-	CloudInstance cin=new CloudInstance();
+	private BasicCloudComputeSource amazonSource;
 
 	private static Map<String, APICall> apiHelp = new HashMap<String, APICall>();
 
@@ -77,6 +72,7 @@ public class AmazonEC2Engine<C extends Object> extends
 				source.getAccesskey(), source.getSecretkey());
 		client = new AmazonEC2Client(credentials);
 		client.setEndpoint(source.getRegion());
+		amazonSource = (BasicCloudComputeSource) source;
 	}
 
 	public String title() {
@@ -143,48 +139,39 @@ public class AmazonEC2Engine<C extends Object> extends
 
 	public <C, D> ComputeCloudOutput<D> list(ComputeCloudInput<C> tempInput)
 			throws ComputeEngineException {
-		logger.info("IN AMAZON ENGINe LIST");
 		Assert.notNull(client,
 				"'ComputeCloudClient['" + source.getComputeEngineClassName()
 						+ "'] must not be null");
 
-		ComputeCloudOutput<CloudInstance> output = null;
-		ComputeCloudOutput<String> output1=null;
-          ComputeCloudOutput<CloudInstance> Ci;
-                   
+		ComputeCloudOutput<List<CloudInstance>> output = null;
+		List<CloudInstance> cloudInstancesList = new ArrayList();
 		try {
-			//output1=imlist(tempInput);
-			List<Reservation>clist=new ArrayList<Reservation>();
-			List<com.amazonaws.services.ec2.model.Instance> inslist=new ArrayList<com.amazonaws.services.ec2.model.Instance>();
 			DescribeInstancesResult result = client
 					.describeInstances(new RequestCreator<C>().list(tempInput));
-			logger.info("LIST INSTANCES" + result);
-			clist=result.getReservations();
-			Reservation rs=clist.get(0);
-			inslist=rs.getInstances();
-			if(inslist.isEmpty()){
-				String error="ERROR IN STRING INSTANCE";
-				cin.setId(error);
+
+			for (Reservation singleReservation : result.getReservations()) {
+				CloudInstance cloudInstance = new CloudInstance();
+				cloudInstancesList.add(cloudInstance);
+				cloudInstance.setOwner(singleReservation.getOwnerId());
+				for (com.amazonaws.services.ec2.model.Instance singleInstance : singleReservation
+						.getInstances()) {
+					cloudInstance.setInstanceId(singleInstance.getInstanceId());
+					cloudInstance.setInstanceType(singleInstance
+							.getInstanceType());
+					cloudInstance.setState(singleInstance.getState().getName());
+					cloudInstance.setImageId(singleInstance.getImageId());
+					cloudInstance.setPublicDnsName(singleInstance
+							.getPublicDnsName());
+					cloudInstance.setPlatform(singleInstance.getPlatform());
+				}
 			}
-			else{
-			com.amazonaws.services.ec2.model.Instance instid=inslist.get(0);
-			String insid=instid.getInstanceId();
-			String imgid=instid.getImageId();
-			String insttyp=instid.getInstanceType();
-			InstanceState inststate=instid.getState();
-			String stat=inststate.getName();
-			
-			
-			cin.setId(imgid);
-			cin.setId(insid);
-			cin.setId(insttyp);
-			cin.setId(stat);
-			
-			imlist(new ComputeCloudInput<String>(imgid));
-			
-			output = new ComputeCloudOutput<CloudInstance>(cin);
-			}
-			
+			/**
+			 * cloudInstance = (new ImagesHelper(client, new
+			 * RequestCreator<C>().images(tempInput))) .images(cloudInstance);
+			 **/
+			output = new ComputeCloudOutput<List<CloudInstance>>(
+					cloudInstancesList);
+
 		} catch (AmazonServiceException ase) {
 			throw new ComputeEngineException(ase);
 
@@ -192,57 +179,6 @@ public class AmazonEC2Engine<C extends Object> extends
 			throw new ComputeEngineException(ase);
 		}
 		return (ComputeCloudOutput<D>) output;
-	}
-
-	private <C, D> ComputeCloudOutput<CloudInstance> imlist(ComputeCloudInput<C> tmp) throws ComputeEngineException{
-		
-		logger.info("IN AMAZON ENGINe LIST");
-		Assert.notNull(client,
-				"'ComputeCloudClient['" + source.getComputeEngineClassName()
-						+ "'] must not be null");
-
-		ComputeCloudOutput<CloudInstance> output=null;
-		//CloudInstance ci=new CloudInstance();
-		try{
-			   DescribeImagesResult result=client.describeImages(new RequestCreator<C>().imlist(tmp));
-			   List<Image> imli=new ArrayList<Image>();
-			   imli=result.getImages();
-			   if(imli.isEmpty()){
-				   String error="IMAGE LIST IS EMPTY";
-				   cin.setId(error);
-			   }
-			   else{
-			   Image str=imli.get(0);
-			   //String imgid=str.getImageId();
-			   String des=str.getDescription();
-			   String state=str.getState();
-			   String name=str.getName();
-			   String plst=str.getPlatform();
-			   boolean pub=str.getPublic();
-			   String publ;
-			   if(pub){publ="True";}
-			   else{publ="False";}
-			   
-			   String own=str.getOwnerId();
-			   
-			   //cin.setId(imgid);
-			   cin.setId(des);
-			   cin.setId(state);
-			   cin.setId(name);
-			   cin.setId(plst);
-			   cin.setId(own);
-			   cin.setId(publ);			   
-			   }
-			   logger.info("IN IMAGE REQUEST");
-			   output=new ComputeCloudOutput<CloudInstance>(cin);
-			    
-		}catch (AmazonServiceException ase) {
-			throw new ComputeEngineException(ase);
-
-		} catch (AmazonClientException ase) {
-			throw new ComputeEngineException(ase);
-		}
-		return (ComputeCloudOutput<CloudInstance>) output;
 	}
 
 	public <C, D> ComputeCloudOutput<D> start(ComputeCloudInput<C> tempInput)
@@ -311,7 +247,6 @@ public class AmazonEC2Engine<C extends Object> extends
 		Assert.notNull(client,
 				"'ComputeCloudClient['" + source.getComputeEngineClassName()
 						+ "'] must not be null");
-
 		ComputeCloudOutput<RunInstancesResult> output;
 		try {
 			RunInstancesResult result = client
@@ -339,7 +274,7 @@ public class AmazonEC2Engine<C extends Object> extends
 			GetConsoleOutputResult result = client
 					.getConsoleOutput(new RequestCreator<C>().log(tempInput));
 			output = new ComputeCloudOutput<GetConsoleOutputResult>(result);
-			
+
 		} catch (AmazonServiceException ase) {
 			throw new ComputeEngineException(ase);
 
@@ -347,7 +282,6 @@ public class AmazonEC2Engine<C extends Object> extends
 			throw new ComputeEngineException(ase);
 		}
 		return (ComputeCloudOutput<D>) output;
-
 	}
 
 	public <D> ComputeCloudBuilder builder(ComputeCloudOutput<D> tempOutput) {
@@ -362,62 +296,51 @@ public class AmazonEC2Engine<C extends Object> extends
 		}
 
 		DescribeInstancesRequest list(ComputeCloudInput<T> tempInput) {
-			/*
-			 * T input = tempInput.get(); CloudInstance tempInst =
-			 * (CloudInstance)input; DescribeInstancesRequest request = ....;
-			 * request.set (tempInst.getId()); return request;
-			 */
-			String instance = (String) tempInput.get();
-			logger.info("INSTANCE......." + instance);
-			DescribeInstancesRequest instid = new DescribeInstancesRequest();
-			logger.info("INSTANCE ID............." + instance);
-			instid.withInstanceIds(instance);
-			instid.getInstanceIds();
-			return instid;
-		}		
-		
-		DescribeImagesRequest imlist(ComputeCloudInput<T> tempInput){
-			
-			String image=(String) tempInput.get();
-			DescribeImagesRequest imgid=new DescribeImagesRequest();
-			imgid.withImageIds(image);						
-			return imgid;
+			String tempInstanceId = (tempInput.get() == null ? amazonSource
+					.getInstanceId() : (String) tempInput.get());
+			if (tempInstanceId.trim().length() <= 0) {
+				tempInstanceId = amazonSource.getInstanceId();
+			}
+			logger.info("The Instance id is =>" + tempInstanceId);
+			return (new DescribeInstancesRequest()
+					.withInstanceIds(tempInstanceId));
 		}
-		
+
+		DescribeImagesRequest images(ComputeCloudInput<T> tempInput) {
+			return (new DescribeImagesRequest().withImageIds((String) tempInput
+					.get()));
+
+		}
+
 		StickIntoInstanceRequest stick(ComputeCloudInput<T> input) {
 			return null;
 		}
 
 		RunInstancesRequest run(ComputeCloudInput<T> input) {
-			/*
-			 * CloudInstance... RunInstancesResult runInstanceReq = null;
-			 * 
-			 * runInstanceReq = new RunInstancesRequest();
-			 * runInstanceReq.withImageId(param1).withInstanceType("t1.micro")
-			 * .withMinCount(1).withMaxCount(1);
-			 */
-			return null;
+			CloudInstance tempCloudInstance = (CloudInstance) input.get();
+			return new RunInstancesRequest().withImageId(
+					tempCloudInstance.getImageId()).withInstanceType(
+					amazonSource.getInstanceType());
 		}
 
 		StartInstancesRequest start(ComputeCloudInput<T> input) {
-			CloudInstance instance = (CloudInstance) input.get();
-			StartInstancesRequest inststart = new StartInstancesRequest();
-			inststart.withInstanceIds(new String[] { instance.getId() });
-			return inststart;
+			return new StartInstancesRequest()
+					.withInstanceIds(new String[] { ((CloudInstance) input
+							.get()).getInstanceId() });
 		}
 
 		StopInstancesRequest stop(ComputeCloudInput<T> input) {
-			CloudInstance instance = (CloudInstance) input.get();
-			StopInstancesRequest inststart = new StopInstancesRequest();
-			inststart.withInstanceIds(new String[] { instance.getId() });
-			return inststart;
+			return new StopInstancesRequest()
+					.withInstanceIds(new String[] { ((CloudInstance) input
+							.get()).getInstanceId() });
+
 		}
 
 		GetConsoleOutputRequest log(ComputeCloudInput<T> input) {
-			String instance=(String) input.get();
-			GetConsoleOutputRequest cr=new GetConsoleOutputRequest();
-			cr.withInstanceId(instance);
-			return cr;
+			return new GetConsoleOutputRequest()
+					.withInstanceId(((CloudInstance) input.get())
+							.getInstanceId());
+
 		}
 
 	}

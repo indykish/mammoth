@@ -66,7 +66,6 @@ public class CloudIdentityController<C> {
 	public @RequestMapping(value = "/cloudidentity/list/{instid}", method = RequestMethod.GET)
 	@ResponseBody
 	String list(@Valid @RequestParam(value="instid", required=false) String instid) {
-		logger.info("IN LIST METHOD...................." + instid);
 		ComputeCloudOutput<C> output = null;
 		
 		try {

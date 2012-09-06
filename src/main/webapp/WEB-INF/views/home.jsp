@@ -10,12 +10,11 @@
 					onclick="isComputeEngineUp()">Cloud - Alive ?<i
 						class="icon-chevron-right"></i></a></li>
 				<li><a href="#" id="printinfo" onclick="printInfo()">Describe<i
-						class="icon-chevron-right"></i></a></li>				
+						class="icon-chevron-right"></i></a></li>
 				<li><a href="#" id="listallrawidentity"
 					onclick="listAllRawIdentity()">List<i
 						class="icon-chevron-right"></i></a></li>
-				<li><a href="#" id="list"
-					onclick="log()">List<i
+				<li><a href="#" id="log" onclick="log()">Log<i
 						class="icon-chevron-right"></i></a></li>
 			</ul>
 		</div>
@@ -25,48 +24,118 @@
 				now we are supporting interface to Amazon EC2. Refer our
 				documentation for link here.....</div>
 			<div id="error_message_box" class="alert alert-error"></div>
-			<h2>Baked identity</h2>
 			<div class="span3">
-				<button class="btn btn-large btn-primary btn btn-inverse btn-block" type="button"
-					onclick="stickIntoTheIdentity()">Stick</button>
+				<button id="stickintotheidentity" class="btn btn-large btn-primary btn btn-inverse btn-block"
+					type="button" onclick="stickIntoTheIdentity()">
+					<i class="icon-white icon-road"></i> Stick
+				</button>
+				<p></p>
+				<div id="divMessage" style="display: none;">
+					loading... Please wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+						src="./resources/images/loading.gif" />
+				</div>
 			</div>
 			<div class="span2">
-				<button class="btn btn-large btn-primary btn-block" type="button"
-					onclick="startTheInstance()">Start</button>
+				<button id="starttheinstance" class="btn btn-large btn-primary btn-block" type="button"
+					onclick="startTheInstance()">
+					<i class="icon-white icon-play"> </i> Start
+				</button>
 			</div>
 			<div class="span2">
-				<button class="btn btn-large btn-primary btn-block" type="button"
-					onclick="runTheInstance()">Run</button>
+				<button id="runtheinstance" class="btn btn-large btn-primary btn-block" type="button"
+					onclick="runTheInstance()">
+					<i class="icon-white icon-plus"></i> Run
+				</button>
 			</div>
 			<div class="span2">
-				<button class="btn btn-large btn-primary btn-block" type="button"
-					onclick="stopTheInstance()">Stop</button>
-			</div>
-			<div class="span9">
-				<table class="table table-hover table-striped">
-					<caption></caption>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Description</th>
-							<th>Status</th>
-							<th>Owner</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
+				<button id="stoptheinstance" class="btn btn-large btn-primary btn-block" type="button"
+					onclick="stopTheInstance()">
+					<i class="icon-white icon-stop"></i> Stop
+				</button>
+			</div>	 
+			<br></br>
+			<table class="table table-bordered"><tbody><div class="span6" id="listgrid"></div></tbody></table>			
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+	var spinner;
+	var listgrid;
+	var upgrid;
+	var selectedInstanceId=null;
+
 	$(document).ready(function() {
-		$('#error_message_box').hide();
+		clearup_stuff();
 	});
 
-	var spinner;
+	var alivecolumns = [ {
+		id : "endpoint",
+		name : "End Point",
+		field : "endpoint",
+		width : 400,
+		minWidth : 200,
+		rerenderOnResize : true
+	}, {
+		id : "regionName",
+		name : "RegionName",
+		field : "regionName",
+		width : 200,
+		minWidth : 150,
+		rerenderOnResize : true
+	} ];
+
+	var listcolumns = [ {
+		id : "instanceId",
+		name : "InstanceId",
+		field : "instanceId",
+		width : 90,
+		rerenderOnResize : true,
+		behavior: "selectAndMove",
+	    selectable: true,
+	}, {
+		id : "imageId",
+		name : "ImageId",
+		field : "imageId",
+		width : 90,
+		cssClass: "cell-title",
+	    selectable: true,
+		rerenderOnResize : true
+	}, {
+		id : "instanceType",
+		name : "InstanceType",
+		field : "instanceType",
+		width : 100,
+	    selectable: true,
+		rerenderOnResize : true
+	}, {
+		id : "state",
+		name : "State",
+		field : "state",
+	    selectable: true,
+		width : 100,
+		rerenderOnResize : true
+	}, {
+		id : "owner",
+		name : "OwnerId",
+		field : "owner",
+	    selectable: true,
+		width : 90,
+		rerenderOnResize : true
+	}, {
+		id : "publicDnsName",
+		name : "PublicDnsName",
+		field : "publicDnsName",
+	    selectable: true,
+		width : 130,
+		rerenderOnResize : true
+	} ];
+	
+	var options = {
+		editable : false,
+		enableCellNavigation : true,
+		showHeaderRow : true,
+	};
 
 	function fireSpinner() {
 		var opts = {
@@ -120,25 +189,19 @@
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "/cloudidentity/describe",
+					url : "./cloudidentity/describe",
 					beforeSend : function() {
 					},
 					success : function(data) {
-						var disp_info = "Description of 'mammoth' (Cloud Identity) REST API.\n";
-						$.each(data,function() {
-							disp_info += "<p><span class=\"label label-success\">"+this.apistr+"</span>"+
-								 " - " + 	"<span class=\"label label-important\">"+this.desc + "</span></p>\n";
+						var disp_info = "Description of 'mammoth' (Cloud Identity) REST API.<br></br>";
+						$.each(data, function() {
+							disp_info += this.apistr + "    : " + this.desc + "<br></br>";
 						});
 						$('#message_display_box').html(disp_info);
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-							 + ", Exception :" + errorThrown +"]";
-							 
-							$("#error_message_box").html(errorStr);
-							$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
 					},
 					always : function() {
 					}
@@ -146,7 +209,6 @@
 	}
 
 	function isComputeEngineUp() {
-
 		$
 				.ajax({
 					type : "GET",
@@ -156,21 +218,17 @@
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
 						var disp_info = "Yeehaw ! Compute engine is alive.\n";
-						$.each(data,function() {
-							disp_info += "<p><span class=\"label label-success\">"+this.apistr+"</span>"+
-								 " - " + 	"<span class=\"label label-important\">"+this.desc + "</span></p>\n";
-						});
-						$('#message_display_box').html(disp_info);
+						upgrid = new Slick.Grid("#alivegrid", data.out.regions,
+								alivecolumns, options);
+						$('#alivegrid').show();
+						$("#message_display_box").html(disp_info);
+
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";
-						 
-						$("#error_message_box").html(errorStr);
-						$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
 
 					},
 					always : function() {
@@ -179,25 +237,38 @@
 	}
 
 	function listAllRawIdentity() {
-                var instid="i-c8599f9c";
 		$
 				.ajax({
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "./cloudidentity/list/{instid}",
+					url : "./cloudidentity/list/{"+selectedInstanceId+"}",
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
+						listgrid = new Slick.Grid("#listgrid", data.out,
+								listcolumns, options);
+						$('#listgrid').show();
+
+						listgrid
+								.setSelectionModel(new Slick.RowSelectionModel());
+
+						listgrid.onClick
+								.subscribe(function(e, args) {
+									var selectedRows = listgrid.getSelectedRows();
+									if (selectedRows.length > 0) {
+										var cell = listgrid.getCellFromEvent(e);
+										selectedInstanceId = data.out[args.row][listgrid.getColumns()[0].field];
+										var selectedColumnName = listgrid
+												.getColumns()[cell.cell]; // object containing name, field, id, etc
+									
+									}
+								});
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";
-						 
-						$("#error_message_box").html(errorStr);
-						$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
 					},
 					always : function() {
 					}
@@ -219,18 +290,17 @@
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
+
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";
-						 
-						$("#error_message_box").html(errorStr);
-						$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
+					},
 					always : function() {
 					}
 				});
+		return false;
 
 	}
 
@@ -247,20 +317,17 @@
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
+
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";
-					
-							$("#error_message_box").html(errorStr);
-							$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
 
 					},
 					always : function() {
 					}
 				});
+		return false;
 	}
 
 	function startTheInstance() {
@@ -271,27 +338,26 @@
 					type : "POST",
 					dataType : "json",
 					async : true,
-					url : "/start",
+					url : "./start",
 					data : instid,
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
+
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";
-							$("#error_message_box").html(errorStr);
-							$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
 
 					},
 					always : function() {
 					}
 				});
+		return false;
 
 	}
-	
+
 	function stopTheInstance() {
 		var instid = "i-82ce88d6";
 
@@ -305,50 +371,65 @@
 					beforeSend : function() {
 					},
 					success : function(data) {
+						clearup_stuff();
+
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						$('#loading').fadeOut();
-						spinner.stop();
-						var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText 
-						 + ", Exception :" + errorThrown +"]";					
-							$("#error_message_box").html(errorStr);
-							$("#error_message_box").show();
+						print_error(jqXHR, textStatus,errorThrown);	
+
 
 					},
 					always : function() {
 					}
 				});
+		return false;
 
 	}
-	
+
 	function log() {
-        var instid="i-c8599f9c";
-$
-		.ajax({
-			type : "GET",
-			dataType : "json",
-			async : true,
-			url : "/mammoth/cloudidentity/log/{instid}",
-			
-			beforeSend : function() {
-			},
-			success : function(data) {
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				$('#loading').fadeOut();
-				spinner.stop();
-				var errorStr = "An error occurred when the attemping an ajax request. [Status :"+jqXHR.status + ", Status Text :" + jqXHR.statusText  + ", Exception :" + errorThrown +"]";				
+		var instid = "i-c8599f9c";
+		$
+				.ajax({
+					type : "GET",
+					dataType : "json",
+					async : true,
+					url : "/mammoth/cloudidentity/log/{instid}",
 
-				$("#error_message_box").prepend(errorStr);
-				$("#error_message_box").show();
-			},
-			always : function() {
-			}
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-		});
-return false;
-}
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+					print_error(jqXHR, textStatus,errorThrown);	
+					},
+					always : function() {
+					}
 
+				});
+		return false;
+	}
+	
+		
+	function print_error(jqXHR, textStatus,errorThrown) {
+		clearup_stuff();
+		$('#loading').fadeOut();
+		spinner.stop();
+		var errorStr = "An error occurred when the attemping an ajax request. [Status :"
+				+ jqXHR.status
+				+ ",   Status Text :"
+				+ jqXHR.statusText
+				+ ",   Exception :"
+				+ errorThrown + "]";
 
+		$("#error_message_box").html(errorStr);
+		$("#error_message_box").show();
+	}
+	
+	function clearup_stuff() {
+		$('#error_message_box').hide();
+		$('#alivegrid').hide();
+	}
 	
 </script>

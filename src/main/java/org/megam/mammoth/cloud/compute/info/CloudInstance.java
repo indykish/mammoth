@@ -2,51 +2,39 @@ package org.megam.mammoth.cloud.compute.info;
 
 public class CloudInstance {
 
-	private String instid;
-	private String imgid;
-	private String insttype;
+	private String instanceId;
+	private String imageId;
+	private String instanceType;
 	private String state;
-	private String Desc;
+	private String description;
 	private String name;
-	private String platfrm;
-	private String Owner;
-	private String publ;
-	private String Id;
-	private String error;
-	public String getError() {
-		return error;
+	private String platform;
+	private String owner;
+	private String isPublic;
+	private String publicDnsName;
+
+	public String getInstanceId() {
+		return instanceId;
 	}
 
-	public void setError(String error) {
-		this.error = error;
+	public void setInstanceId(String instanceId) {
+		this.instanceId = instanceId;
 	}
 
-	public void setId(String id) {
-		Id = id;
+	public String getImageId() {
+		return imageId;
 	}
 
-	public String getInstid() {
-		return instid;
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
 	}
 
-	public void setInstid(String instid) {
-		this.instid = instid;
+	public String getInstanceType() {
+		return instanceType;
 	}
 
-	public String getImgid() {
-		return imgid;
-	}
-
-	public void setImgid(String imgid) {
-		this.imgid = imgid;
-	}
-
-	public String getInsttype() {
-		return insttype;
-	}
-
-	public void setInsttype(String insttype) {
-		this.insttype = insttype;
+	public void setInstanceType(String instanceType) {
+		this.instanceType = instanceType;
 	}
 
 	public String getState() {
@@ -57,12 +45,12 @@ public class CloudInstance {
 		this.state = state;
 	}
 
-	public String getDesc() {
-		return Desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		Desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {
@@ -73,33 +61,36 @@ public class CloudInstance {
 		this.name = name;
 	}
 
-	public String getPlatfrm() {
-		return platfrm;
+	public String getPlatform() {
+		return platform;
 	}
 
-	public void setPlatfrm(String platfrm) {
-		this.platfrm = platfrm;
+	public void setPlatform(String platform) {
+		this.platform = platform;
 	}
 
 	public String getOwner() {
-		return Owner;
+		return owner;
 	}
 
 	public void setOwner(String owner) {
-		Owner = owner;
+		this.owner = owner;
 	}
 
-	public String getPubl() {
-		return publ;
+	public String getIsPublic() {
+		return isPublic;
 	}
 
-	public void setPubl(String publ) {
-		this.publ = publ;
+	public void setIsPublic(String isPublic) {
+		this.isPublic = isPublic;
 	}
 
-	public String getId() {
-		return Id;
+	public String getPublicDnsName() {
+		return publicDnsName;
 	}
 
-	
+	public void setPublicDnsName(String publicDnsName) {
+		this.publicDnsName = publicDnsName;
 	}
+
+}

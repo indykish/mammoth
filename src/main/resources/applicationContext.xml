@@ -75,6 +75,7 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 	class="org.megam.mammoth.cloud.compute.info.BasicCloudComputeSource">
 		<property name="instanceType" value="${ccls.instance_type}"/>
 		<property name="imageId" value="${ccls.image_id}"/>
+		<property name="instanceId" value="${ccls.instance_id}"/>
 	</bean>
 
 	<!-- Use HSQLDB by default -->

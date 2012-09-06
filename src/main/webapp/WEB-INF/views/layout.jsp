@@ -13,12 +13,35 @@
 	type="text/css" media="screen, projection" />
 <link rel="stylesheet" href='<c:url value="/resources/css/megam.css"/>'
 	type="text/css" media="screen" />
+	<link rel="stylesheet" href='<c:url value="/resources/css/slick.grid.css"/>'
+	type="text/css" />
+
 <script type="text/javascript"
 	src='<c:url value="/resources/js/bootstrap.min.js"/>'></script>
 <script type="text/javascript"
 	src='<c:url value="/resources/js/jquery.min.js"/>'></script>
 <script type="text/javascript"
 	src='<c:url value="/resources/js/spin.min.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/jquery-ui-1.8.16.custom.min.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/jquery.event.drag-2.0.min.js"/>'></script>
+		<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.core.js"/>'></script>
+<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.editors.js"/>'></script>
+<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.grid.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.dataview.js"/>'></script>
+<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.formatters.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.rowselectionmodel.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.cellselectionmodel.js"/>'></script>
+	<script type="text/javascript"
+	src='<c:url value="/resources/js/slick.cellrangeselector.js"/>'></script>
 </head>
 <body>
 	<div class="container">
@@ -32,21 +55,6 @@
 	</div>
 
 	<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
-	<div id="loading" />	
-		
-		<!-- Modal -->
-	<div class="modal  hide fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
-			<h3 id="myModalLabel">Modal Heading</h3>
-		</div>
-		<div class="modal-body"></div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal">Close</button>
-			<button class="btn btn-primary">Save changes</button>			
-		</div>
-	</div>
-</body>
+	<div id="loading" />
+	</body>
 </html>
