@@ -3,16 +3,29 @@
 
 <div class="container">
 	<div class="row-fluid">
-		
-		<div class="span7">
+		<div class="span3 bs-docs-sidebar">
+			<ul class="nav nav-list bs-docs-sidenav">
+				<li class="nav-header">Actions- Immutable</li>
+				<li><a href="#" id="iscomputeengineup"
+					onclick="isComputeEngineUp()">Cloud - Alive ?<i
+						class="icon-chevron-right"></i></a></li>
+				<li><a href="#" id="printinfo" onclick="printInfo()">Describe<i
+						class="icon-chevron-right"></i></a></li>
+				<li><a href="#" id="listallrawidentity"
+					onclick="listAllRawIdentity()">List<i
+						class="icon-chevron-right"></i></a></li>
+				<li><a href="#" id="log" onclick="log()">Log<i
+						class="icon-chevron-right"></i></a></li>
+			</ul>
+		</div>
+		<div class="span9">
 			<h2>Raw Identity</h2>
 			<div id="message_display_box" class="alert alert-success">Right
 				now we are supporting interface to Amazon EC2. Refer our
 				documentation for link here.....</div>
 			<div id="error_message_box" class="alert alert-error"></div>
 			<div class="span3">
-				<button id="stickintotheidentity"
-					class="btn btn-large btn-primary btn btn-inverse btn-block"
+				<button id="stickintotheidentity" class="btn btn-large btn-primary btn btn-inverse btn-block"
 					type="button" onclick="stickIntoTheIdentity()">
 					<i class="icon-white icon-road"></i> Stick
 				</button>
@@ -23,32 +36,25 @@
 				</div>
 			</div>
 			<div class="span2">
-				<button id="starttheinstance"
-					class="btn btn-large btn-primary btn-block" type="button"
+				<button id="starttheinstance" class="btn btn-large btn-primary btn-block" type="button"
 					onclick="startTheInstance()">
 					<i class="icon-white icon-play"> </i> Start
 				</button>
 			</div>
 			<div class="span2">
-				<button id="runtheinstance"
-					class="btn btn-large btn-primary btn-block" type="button"
+				<button id="runtheinstance" class="btn btn-large btn-primary btn-block" type="button"
 					onclick="runTheInstance()">
 					<i class="icon-white icon-plus"></i> Run
 				</button>
 			</div>
 			<div class="span2">
-				<button id="stoptheinstance"
-					class="btn btn-large btn-primary btn-block" type="button"
+				<button id="stoptheinstance" class="btn btn-large btn-primary btn-block" type="button"
 					onclick="stopTheInstance()">
 					<i class="icon-white icon-stop"></i> Stop
 				</button>
-			</div>
+			</div>	 
 			<br></br>
-			<table class="table table-bordered">
-				<tbody>
-					<div class="span6" id="listgrid"></div>
-				</tbody>
-			</table>
+			<table class="table table-bordered"><tbody><div class="span6" id="listgrid"></div></tbody></table>			
 		</div>
 	</div>
 </div>
@@ -57,7 +63,7 @@
 	var spinner;
 	var listgrid;
 	var upgrid;
-	var selectedInstanceId = null;
+	var selectedInstanceId=null;
 
 	$(document).ready(function() {
 		clearup_stuff();
@@ -85,46 +91,46 @@
 		field : "instanceId",
 		width : 90,
 		rerenderOnResize : true,
-		behavior : "selectAndMove",
-		selectable : true,
+		behavior: "selectAndMove",
+	    selectable: true,
 	}, {
 		id : "imageId",
 		name : "ImageId",
 		field : "imageId",
 		width : 90,
-		cssClass : "cell-title",
-		selectable : true,
+		cssClass: "cell-title",
+	    selectable: true,
 		rerenderOnResize : true
 	}, {
 		id : "instanceType",
 		name : "InstanceType",
 		field : "instanceType",
 		width : 100,
-		selectable : true,
+	    selectable: true,
 		rerenderOnResize : true
 	}, {
 		id : "state",
 		name : "State",
 		field : "state",
-		selectable : true,
+	    selectable: true,
 		width : 100,
 		rerenderOnResize : true
 	}, {
 		id : "owner",
 		name : "OwnerId",
 		field : "owner",
-		selectable : true,
+	    selectable: true,
 		width : 90,
 		rerenderOnResize : true
 	}, {
 		id : "publicDnsName",
 		name : "PublicDnsName",
 		field : "publicDnsName",
-		selectable : true,
+	    selectable: true,
 		width : 130,
 		rerenderOnResize : true
 	} ];
-
+	
 	var options = {
 		editable : false,
 		enableCellNavigation : true,
@@ -187,15 +193,14 @@
 					beforeSend : function() {
 					},
 					success : function(data) {
-						var disp_info = "Description of 'mammoth' (Cloud Identity) REST API._$ta_$ta_$tag";
+						var disp_info = "Description of 'mammoth' (Cloud Identity) REST API.<br></br>";
 						$.each(data, function() {
-							disp_info += this.apistr + "    : " + this.desc
-									+ "_$ta_$tag_$ta_$ta_$tag_$ta_$tag";
+							disp_info += this.apistr + "    : " + this.desc + "<br></br>";
 						});
 						$('#message_display_box').html(disp_info);
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						print_error(jqXHR, textStatus, errorThrown);
+						print_error(jqXHR, textStatus,errorThrown);	
 
 					},
 					always : function() {
@@ -204,29 +209,31 @@
 	}
 
 	function isComputeEngineUp() {
-		$.ajax({
-			type : "GET",
-			dataType : "json",
-			async : true,
-			url : "./cloudidentity/up",
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
-				var disp_info = "Yeehaw ! Compute engine is alive.\n";
-				upgrid = new Slick.Grid("#alivegrid", data.out.regions,
-						alivecolumns, options);
-				$('#alivegrid').show();
-				$("#message_display_box").html(disp_info);
+		$
+				.ajax({
+					type : "GET",
+					dataType : "json",
+					async : true,
+					url : "./cloudidentity/up",
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
+						var disp_info = "Yeehaw ! Compute engine is alive.\n";
+						upgrid = new Slick.Grid("#alivegrid", data.out.regions,
+								alivecolumns, options);
+						$('#alivegrid').show();
+						$("#message_display_box").html(disp_info);
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						print_error(jqXHR, textStatus,errorThrown);	
 
-			},
-			always : function() {
-			}
-		});
+
+					},
+					always : function() {
+					}
+				});
 	}
 
 	function listAllRawIdentity() {
@@ -235,7 +242,7 @@
 					type : "GET",
 					dataType : "json",
 					async : true,
-					url : "./cloudidentity/list/{" + selectedInstanceId + "}",
+					url : "./cloudidentity/list/{"+selectedInstanceId+"}",
 					beforeSend : function() {
 					},
 					success : function(data) {
@@ -249,20 +256,18 @@
 
 						listgrid.onClick
 								.subscribe(function(e, args) {
-									var selectedRows = listgrid
-											.getSelectedRows();
+									var selectedRows = listgrid.getSelectedRows();
 									if (selectedRows.length > 0) {
 										var cell = listgrid.getCellFromEvent(e);
-										selectedInstanceId = data.out[args.row][listgrid
-												.getColumns()[0].field];
+										selectedInstanceId = data.out[args.row][listgrid.getColumns()[0].field];
 										var selectedColumnName = listgrid
 												.getColumns()[cell.cell]; // object containing name, field, id, etc
-
+									
 									}
 								});
 					},
 					error : function(jqXHR, textStatus, errorThrown) {
-						print_error(jqXHR, textStatus, errorThrown);
+						print_error(jqXHR, textStatus,errorThrown);	
 
 					},
 					always : function() {
@@ -275,76 +280,80 @@
 	function stickIntoTheIdentity() {
 		var instid = "i-82ce88d6";
 
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			async : true,
-			url : "./cloudidentity/stick",
-			data : instid,
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
+		$
+				.ajax({
+					type : "POST",
+					dataType : "json",
+					async : true,
+					url : "./cloudidentity/stick",
+					data : instid,
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						print_error(jqXHR, textStatus,errorThrown);	
 
-			},
-			always : function() {
-			}
-		});
+					},
+					always : function() {
+					}
+				});
 		return false;
 
 	}
 
 	function runTheInstance() {
 
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			async : true,
-			url : "./run",
-			data : JSON.stringify("ami-00067852"),
-			contentType : 'application/json',
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
+		$
+				.ajax({
+					type : "POST",
+					dataType : "json",
+					async : true,
+					url : "./run",
+					data : JSON.stringify("ami-00067852"),
+					contentType : 'application/json',
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						print_error(jqXHR, textStatus,errorThrown);	
 
-			},
-			always : function() {
-			}
-		});
+					},
+					always : function() {
+					}
+				});
 		return false;
 	}
 
 	function startTheInstance() {
 		var instid = "i-82ce88d6";
 
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			async : true,
-			url : "./start",
-			data : instid,
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
+		$
+				.ajax({
+					type : "POST",
+					dataType : "json",
+					async : true,
+					url : "./start",
+					data : instid,
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						print_error(jqXHR, textStatus,errorThrown);	
 
-			},
-			always : function() {
-			}
-		});
+
+					},
+					always : function() {
+					}
+				});
 		return false;
 
 	}
@@ -352,54 +361,58 @@
 	function stopTheInstance() {
 		var instid = "i-82ce88d6";
 
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			async : true,
-			url : "./cloudidentity/stop",
-			data : instid,
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
+		$
+				.ajax({
+					type : "POST",
+					dataType : "json",
+					async : true,
+					url : "./cloudidentity/stop",
+					data : instid,
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						print_error(jqXHR, textStatus,errorThrown);	
 
-			},
-			always : function() {
-			}
-		});
+
+					},
+					always : function() {
+					}
+				});
 		return false;
 
 	}
 
 	function log() {
 		var instid = "i-c8599f9c";
-		$.ajax({
-			type : "GET",
-			dataType : "json",
-			async : true,
-			url : "/mammoth/cloudidentity/log/{instid}",
+		$
+				.ajax({
+					type : "GET",
+					dataType : "json",
+					async : true,
+					url : "/mammoth/cloudidentity/log/{instid}",
 
-			beforeSend : function() {
-			},
-			success : function(data) {
-				clearup_stuff();
+					beforeSend : function() {
+					},
+					success : function(data) {
+						clearup_stuff();
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				print_error(jqXHR, textStatus, errorThrown);
-			},
-			always : function() {
-			}
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+					print_error(jqXHR, textStatus,errorThrown);	
+					},
+					always : function() {
+					}
 
-		});
+				});
 		return false;
 	}
-
-	function print_error(jqXHR, textStatus, errorThrown) {
+	
+		
+	function print_error(jqXHR, textStatus,errorThrown) {
 		clearup_stuff();
 		$('#loading').fadeOut();
 		spinner.stop();
@@ -407,16 +420,16 @@
 				+ jqXHR.status
 				+ ",   Status Text :"
 				+ jqXHR.statusText
-				+ ",   Exception :" + errorThrown + "]";
+				+ ",   Exception :"
+				+ errorThrown + "]";
 
 		$("#error_message_box").html(errorStr);
 		$("#error_message_box").show();
 	}
-
+	
 	function clearup_stuff() {
 		$('#error_message_box').hide();
 		$('#alivegrid').hide();
 	}
-	
 	
 </script>

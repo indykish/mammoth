@@ -15,6 +15,7 @@
 	type="text/css" media="screen" />
 	<link rel="stylesheet" href='<c:url value="/resources/css/slick.grid.css"/>'
 	type="text/css" />
+	
 
 <script type="text/javascript"
 	src='<c:url value="/resources/js/bootstrap.min.js"/>'></script>
@@ -45,10 +46,25 @@
 </head>
 <body>
 	<div class="container">
+	
+	
 		<tiles:insertAttribute name="header" />
-		<tiles:insertAttribute name="body" />
-		<hr>
-		</hr>
+		
+	<div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span3">
+    <tiles:insertAttribute name="menu"/>
+    </div>
+    <div class="offset1 span7">
+    <tiles:insertAttribute name="subhead"/>
+    <tiles:insertAttribute name="body" />
+    </div>
+    </div>
+    </div>
+		
+		
+		
+		
 		<div class="section">
 			<tiles:insertAttribute name="footer" />
 		</div>

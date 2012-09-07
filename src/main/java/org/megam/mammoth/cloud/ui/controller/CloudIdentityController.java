@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CloudIdentityController<C> {
@@ -159,6 +160,35 @@ public class CloudIdentityController<C> {
 			e.printStackTrace();
 		}
 		return engine.builder(output).asJson(output);
+	}
+	
+	@RequestMapping(value="/sforcecreate", method=RequestMethod.GET)
+	public @ResponseBody String sflist(){
+		
+		ComputeCloudOutput<C> output=null;
+		   
+		return "ok";		
+	}
+	
+	@RequestMapping(value="sforce")
+	public@ResponseBody ModelAndView sfindex(){
+		
+		return new ModelAndView("salesforce");
+	}
+	@RequestMapping(value="gapp")
+	public@ResponseBody ModelAndView gindex(){
+		
+		return new ModelAndView("googleapp");
+	}
+	@RequestMapping(value="life")
+	public@ResponseBody ModelAndView lindex(){
+		
+		return new ModelAndView("liferay");
+	}
+	@RequestMapping(value="scrm")
+	public@ResponseBody ModelAndView scindex(){
+		
+		return new ModelAndView("sugarcrm");
 	}
 
 }

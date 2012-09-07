@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="base.definition" template="/WEB-INF/views/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="subhead" value=""/>
+		<put-attribute name="menu" value="/WEB-INF/views/menu.jsp"/>
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 	<definition name="home" extends="base.definition">
-		<put-attribute name="title" value="mammoth - cloud identity" />
+		<put-attribute name="title" value="mammoth - cloud identity" />	
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
+	<definition name="salesforce" extends="base.definition">
+		<put-attribute name="title" value="Salesforce Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/salesforce.jsp"/>
+	</definition>
+	<definition name="googleapp" extends="base.definition">
+		<put-attribute name="title" value="GoogleAPP Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/googleapp.jsp"/>
+	</definition>
+	<definition name="liferay" extends="base.definition">
+		<put-attribute name="title" value="Liferay Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/liferay.jsp"/>
+	</definition>
+	<definition name="sugarcrm" extends="base.definition">
+		<put-attribute name="title" value="SugarCRM Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/sugarcrm.jsp"/>
+	</definition>
+	
 </tiles-definitions>
+
