@@ -126,7 +126,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>1.0.0.M1</version>
 			<scope>test</scope>
 		</dependency>
-	
 
 		<!-- JSR 303 with Hibernate Validator -->
 		<dependency>
@@ -182,13 +181,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.2.2</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-        	<groupId>javax.servlet.jsp.jstl</groupId>
-        	<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-        	<version>1.2.1</version>
-        </dependency>
-        
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 
 		<!--  Jackson: JSON processor -->
 		<dependency>
@@ -201,6 +198,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>jackson-databind</artifactId>
 			<version>2.0.5</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<!-- For Hibernate Validator -->
@@ -212,7 +214,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		
+
 		<!-- Sprint Test MVC -->
 		<repository>
 			<id>libs-snapshot</id>
@@ -222,7 +224,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-
 
 		<!-- Apache maven tomcat 7 plugin -->
 		<repository>
@@ -339,7 +340,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					<junitArtifactName>junit:junit</junitArtifactName>
 					<argLine>-Xmx512m</argLine>
 				</configuration>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 </project>

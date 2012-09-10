@@ -43,6 +43,8 @@
 	src='<c:url value="/resources/js/slick.cellselectionmodel.js"/>'></script>
 	<script type="text/javascript"
 	src='<c:url value="/resources/js/slick.cellrangeselector.js"/>'></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+	
 </head>
 <body>
 	<div class="container">

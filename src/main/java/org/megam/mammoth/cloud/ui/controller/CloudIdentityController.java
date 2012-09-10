@@ -17,6 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -162,33 +165,6 @@ public class CloudIdentityController<C> {
 		return engine.builder(output).asJson(output);
 	}
 	
-	@RequestMapping(value="/sforcecreate", method=RequestMethod.GET)
-	public @ResponseBody String sflist(){
-		
-		ComputeCloudOutput<C> output=null;
-		   
-		return "ok";		
-	}
 	
-	@RequestMapping(value="sforce")
-	public@ResponseBody ModelAndView sfindex(){
-		
-		return new ModelAndView("salesforce");
-	}
-	@RequestMapping(value="gapp")
-	public@ResponseBody ModelAndView gindex(){
-		
-		return new ModelAndView("googleapp");
-	}
-	@RequestMapping(value="life")
-	public@ResponseBody ModelAndView lindex(){
-		
-		return new ModelAndView("liferay");
-	}
-	@RequestMapping(value="scrm")
-	public@ResponseBody ModelAndView scindex(){
-		
-		return new ModelAndView("sugarcrm");
-	}
 
 }
