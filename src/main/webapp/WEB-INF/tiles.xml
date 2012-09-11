@@ -20,7 +20,7 @@
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/salesforce.jsp"/>
 	</definition>
-	<definition name="googleapp" extends="base.definition">
+	<definition name="googleapps" extends="base.definition">
 		<put-attribute name="title" value="GoogleAPP Connector"/>
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/googleapp.jsp"/>

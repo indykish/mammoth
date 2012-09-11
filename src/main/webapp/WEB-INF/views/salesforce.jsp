@@ -5,40 +5,40 @@
 
  <div class="container">
 <h1>Create new user</h1>
-<form:form commandName="usr">
+<form>
 <fieldset>
 <table>
- <tr><td><form:label path="username">username</form:label>
- <form:input path="username"/> Username:<input type="text" id="username"/>
-</td><td>Firstname:<input type="text" id="firstname"/>
+ <tr><td>
+ Username:<input type="text" id="username" name="username"/>
+</td><td>Firstname:<input type="text" id="firstname" name="firstname"/>
 </tr>
-<tr><td>Email:<input type="text" id="email"/></td>
+<tr><td>Email:<input type="text" id="email" name="email"/></td>
 <td>Alias:<input type="text" id="alias"/></td></tr>
-<tr><td>ProfileId:<select name="number" id="profile" style="width:158px;">
+<tr><td>ProfileId:<select name="profileid" id="profile" style="width:158px;">
   <option value="none">----Select ----</option>
   <option value="00e90000000Gmi2">Standard-user</option>
   </select>
 </td>
-<td>LastName:<input type="text" id="lastname"/></td></tr>
-<tr><td>TimeZoneSidekey:<select name="number" id="timezon" style="width:158px;">
+<td>LastName:<input type="text" id="lastname" name="lastname"/></td></tr>
+<tr><td>TimeZoneSidekey:<select name="timezone" id="timezon" style="width:158px;">
   <option value="none">----Select ----</option>
   <option value="America/Los_Angeles">LosAngeles</option>
   </select>
- <td>LocaleSideKey:<select name="number" id="localy" style="width:158px;">
+ <td>LocaleSideKey:<select name="locale" id="localy" style="width:158px;">
   <option value="none">----Select ----</option>
   <option value="en_US">US</option>
   </select>
  </td></tr>
- <tr><td>EmailNcodingkey:<input type="text" id="encode" value="UTF-8" readonly="true"/></td>
- <td>LanguageLocaleKey:<select name="number" id="languagekey" style="width:158px;">
+ <tr><td>EmailNcodingkey:<input type="text" id="encode" value="UTF-8" name="encoding" readonly="true"/></td>
+ <td>LanguageLocaleKey:<select name="language" id="languagekey" style="width:158px;">
   <option value="none">----Select ----</option>
   <option value="en_US">Englisg-US</option>
   </select>
  </td></tr>
  </table>
- <p align="center"><input type="button" id="createuser" value="Create" onclick="sforcecreate()"/>
+ <p align="center"><input type="submit" id="createuser" value="Create" onclick="sforcecreate()"/>
  </fieldset>
-</form:form>
+</form>
 </div>
   
   
@@ -151,7 +151,7 @@
 	
 	
 	
-	function sforcecreate() {		
+	/*function sforcecreate() {		
 
 		alert("entry");
 		$(document).ready(function() {alert("entry2");
@@ -180,15 +180,23 @@
 		});
 		return false;
 				});
-			}
+			}*/
 			
 	 $(document).ready(function(){
-		   $("#createuser").click(function(event){
+		   $('form').submit(function(event){
 		     alert("Thanks for visiting!");
-		     //var data=$(this).serializeObject();
-		     //alert(data);
-		     var dat=$('#username').val();
+		     var dat=$(this).serialize();
 		     alert(dat);
+		     //var dat=$('#username').val();
+		     alert(dat);		     
+		     $.post('./salesforce/create', dat, function(data) {
+		    	 window.location.reload(true);	    	
+							
+				}, function(data) {
+					var response = JSON.parse(data.response);
+					alert("Error: "+response[0].id);
+				});
+				return false;
 		   });
 		 });
 
