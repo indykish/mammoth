@@ -5,10 +5,11 @@
 
  <div class="container">
 <h1>Create new user</h1>
-<form:form action="create" method="post">
+<form:form commandName="usr">
+<fieldset>
 <table>
- <tr><td><form:label id="username" path="username"></form:label>
-         <form:input path="username"/>
+ <tr><td><form:label path="username">username</form:label>
+ <form:input path="username"/> Username:<input type="text" id="username"/>
 </td><td>Firstname:<input type="text" id="firstname"/>
 </tr>
 <tr><td>Email:<input type="text" id="email"/></td>
@@ -36,10 +37,14 @@
  </td></tr>
  </table>
  <p align="center"><input type="button" id="createuser" value="Create" onclick="sforcecreate()"/>
+ </fieldset>
 </form:form>
 </div>
   
   
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+  
+ 
   
  <script type="text/javascript">
 	var spinner;
@@ -143,16 +148,22 @@
 		spinner.stop();
 	});
 	
-	function sforcecreate() {
-		
+	
+	
+	
+	function sforcecreate() {		
+
+		alert("entry");
+		$(document).ready(function() {alert("entry2");
+						
+		var data = $('#username').value();
+		alert(data);
 		$.ajax({
 			type : "POST",
 			dataType : "json",
 			async : true,
 			url : "./sforcecreate",
-			data : {
-	            'Username':$('#username').val(),			            
-	        },
+			data : data,
 	        contentType : 'application/json',
 			beforeSend : function() {
 			},
@@ -168,8 +179,18 @@
 			}
 		});
 		return false;
-
-	}
+				});
+			}
+			
+	 $(document).ready(function(){
+		   $("#createuser").click(function(event){
+		     alert("Thanks for visiting!");
+		     //var data=$(this).serializeObject();
+		     //alert(data);
+		     var dat=$('#username').val();
+		     alert(dat);
+		   });
+		 });
 
 	function clearup_stuff() {
 		$('#error_message_box').hide();
