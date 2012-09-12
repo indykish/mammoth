@@ -15,7 +15,7 @@ import com.force.sdk.oauth.context.ForceSecurityContextHolder;
 import com.force.sdk.oauth.context.SecurityContext;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService {
 
 	HttpRequest request = new HttpRequest();
 
@@ -45,7 +45,8 @@ public class PersonServiceImpl implements PersonService{
 
 	public List<SalesforceUser> listPeople() {
 		QueryResult<SalesforceUser> res = getForceApi().query(
-				"SELECT Id, FirstName, LastName FROM User", SalesforceUser.class);
+				"SELECT Id, FirstName, LastName FROM User",
+				SalesforceUser.class);
 		return res.getRecords();
 	}
 

@@ -1,6 +1,5 @@
 package org.megam.mammoth.prov.controller;
 
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
@@ -33,22 +32,20 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 
 @Controller
-
 public class SalesforceController {
-	
-	
-     
+
 	final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
-	
 
 	@Autowired
 	private PersonService personService;
 	Validator validator;
-    @Autowired 
-	public SalesforceController(Validator validator){
-		this.validator=validator;
+
+	@Autowired
+	public SalesforceController(Validator validator) {
+		this.validator = validator;
 	}
-	@RequestMapping("/")	
+
+	@RequestMapping("/")
 	public String listPeople(Map<String, Object> map) {
 
 		map.put("person", new SalesforceUser());
@@ -57,26 +54,24 @@ public class SalesforceController {
 		return "salesforce";
 	}
 
-	@RequestMapping(value = "/salesforce/create",method=RequestMethod.POST)
+	@RequestMapping(value = "/salesforce/create", method = RequestMethod.POST)
 	public String addPerson(SalesforceUser dat) {
-		
-         
-		personService.addPerson(dat);		
+
+		personService.addPerson(dat);
 		return "OK";
 	}
 
 	@RequestMapping("/salesforce/delete/{personId}")
-	public String deletePerson(@PathVariable("personId") String personId) {
+	public String deleteUser(@PathVariable("personId") String personId) {
 
 		personService.removePerson(personId);
 
 		return "redirect:/people/";
 	}
-	/*@RequestMapping("/")
-public@ResponseBody String sfindex(){
-
-    return "salesforce";
-}*/
-
+	/*
+	 * @RequestMapping("/") public@ResponseBody String sfindex(){
+	 * 
+	 * return "salesforce"; }
+	 */
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.megam.mammoth.prov.info.SalesforceUser;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public abstract interface PersonService {
 

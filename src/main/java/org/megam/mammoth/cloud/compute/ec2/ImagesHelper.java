@@ -12,27 +12,28 @@ import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.Image;
 
- class ImagesHelper {
-	 
-	 private DescribeImagesRequest request;
-	 private AmazonEC2Client client;
-	
+class ImagesHelper {
+
+	private DescribeImagesRequest request;
+	private AmazonEC2Client client;
+
 	ImagesHelper(AmazonEC2Client tempClient, DescribeImagesRequest tempRequest) {
 		this.client = tempClient;
 		this.request = tempRequest;
-		
+
 	}
 
-	 CloudInstance images(CloudInstance tempInstance) throws ComputeEngineException {		
+	CloudInstance images(CloudInstance tempInstance)
+			throws ComputeEngineException {
 		try {
 			DescribeImagesResult result = client.describeImages(request);
-			List<Image> imagesList  = result.getImages();
-			if (!imagesList.isEmpty()) {		
-				Image singleImage = imagesList.get(0);				
+			List<Image> imagesList = result.getImages();
+			if (!imagesList.isEmpty()) {
+				Image singleImage = imagesList.get(0);
 				tempInstance.setDescription(singleImage.getDescription());
 				tempInstance.setName(singleImage.getName());
 			}
-			
+
 		} catch (AmazonServiceException ase) {
 			throw new ComputeEngineException(ase);
 

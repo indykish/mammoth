@@ -36,7 +36,7 @@ public abstract class AbstractComputeCloudBuilder<T> implements
 	private <T extends Object> String asJson(T somestuff,
 			java.lang.reflect.Type typeToken) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	
+
 		String jsonout = "";
 		if (typeToken != null) {
 			jsonout = gson.toJson(somestuff, typeToken);
