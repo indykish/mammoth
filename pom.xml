@@ -199,9 +199,24 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.0.5</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
 			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.force.api</groupId>
+			<artifactId>force-rest-api</artifactId>
+			<version>0.0.18</version>
+		</dependency>
+		<dependency>
+			<groupId>com.force.sdk</groupId>
+			<artifactId>force-oauth</artifactId>
+			<version>22.0.8-BETA</version>
+		</dependency>
+		<dependency>
+			<groupId>com.force.sdk</groupId>
+			<artifactId>force-springsecurity</artifactId>
+			<version>22.0.8-BETA</version>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -235,6 +250,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>force-rest-api</id>
+			<name>force-rest-api repository on GitHub</name>
+			<url>http://jesperfj.github.com/force-rest-api/repository/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>

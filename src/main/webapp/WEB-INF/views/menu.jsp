@@ -6,10 +6,10 @@
 <div class="span3 bs-docs-sidebar">
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li class="nav-header">Connectors</li>
-				<li><a href="sforce">Sales force<i class="icon-chevron-right"></i></a></li>
-				<li><a href="gapp">Google App<i class="icon-chevron-right"></i></a></li>
-				<li><a href="life">Liferay<i class="icon-chevron-right"></i></a></li>
-				<li><a href="scrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/salesforce/">Salesforce.com<i class="icon-chevron-right"></i></a></li>
+				<li><a href="./gooogleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
+				<li><a href="./liferay">Liferay<i class="icon-chevron-right"></i></a></li>
+				<li><a href="./sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
 				<li class="nav-header">Actions- Immutable</li>
 				<li><a href="#" id="iscomputeengineup"
 					onclick="isComputeEngineUp()">Cloud - Alive ?<i

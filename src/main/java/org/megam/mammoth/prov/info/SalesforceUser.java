@@ -1,7 +1,9 @@
 package org.megam.mammoth.prov.info;
 
-public class USER {
-	
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class SalesforceUser {
+@Autowired	
 	  String Username; 
 	  String FirstName;
 	  String Email;
@@ -12,7 +14,7 @@ public class USER {
 	  String LocaleSidKey;
 	  String EmailEncodingKey;
 	  String LanguageLocaleKey;
-	  
+	@Autowired  
 	public String getUsername() {
 		return Username;
 	}
