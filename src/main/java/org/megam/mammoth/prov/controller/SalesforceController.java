@@ -48,13 +48,13 @@ public class SalesforceController {
 	public SalesforceController(Validator validator){
 		this.validator=validator;
 	}
-	@RequestMapping("/salesforce/list")	
+	@RequestMapping("/")	
 	public String listPeople(Map<String, Object> map) {
 
 		map.put("person", new SalesforceUser());
 		map.put("peopleList", personService.listPeople());
 
-		return "people";
+		return "salesforce";
 	}
 
 	@RequestMapping(value = "/salesforce/create",method=RequestMethod.POST)
@@ -72,11 +72,11 @@ public class SalesforceController {
 
 		return "redirect:/people/";
 	}
-	@RequestMapping("/")
+	/*@RequestMapping("/")
 public@ResponseBody String sfindex(){
 
     return "salesforce";
-}
+}*/
 
 
 }

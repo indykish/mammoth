@@ -6,7 +6,7 @@
 <div class="span3 bs-docs-sidebar">
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li class="nav-header">Connectors</li>
-				<li><a href="./salesforce/">Salesforce.com<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/salesforce/">Salesforce.com<i class="icon-chevron-right"></i></a></li>
 				<li><a href="./gooogleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
 				<li><a href="./liferay">Liferay<i class="icon-chevron-right"></i></a></li>
 				<li><a href="./sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
