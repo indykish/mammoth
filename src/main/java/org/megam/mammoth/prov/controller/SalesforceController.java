@@ -1,5 +1,8 @@
 package org.megam.mammoth.prov.controller;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,7 @@ public class SalesforceController {
 
 	private Validator validator;
 
+
 	@Autowired
 	public SalesforceController(Validator validator) {
 		this.validator = validator;		
@@ -58,7 +62,9 @@ public class SalesforceController {
 	@RequestMapping("/salesforce/delete/{personId}")
 	public String deletePerson(@PathVariable("personId") String personId) {
 		personService.removePerson(personId);
-		return "redirect:/salesforce/";
+		return "OK";
 	}
+
+	
 
 }

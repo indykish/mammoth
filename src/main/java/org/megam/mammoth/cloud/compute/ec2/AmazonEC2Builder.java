@@ -29,7 +29,7 @@ public class AmazonEC2Builder<T> extends AbstractComputeCloudBuilder {
 		}
 		return instanceList;
 	}
-	
+
 	protected CloudInstance stick() {
 		CloudInstance instance = null;
 		if (output.get() != null) {
@@ -65,7 +65,7 @@ public class AmazonEC2Builder<T> extends AbstractComputeCloudBuilder {
 	protected List<String> log() {
 		List<String> logOutput = new ArrayList<String>();
 		if (output.get() != null) {
-           
+
 		}
 		return logOutput;
 	}

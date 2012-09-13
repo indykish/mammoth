@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService{
 	public List<SalesforceUser> listPeople() {
 		logger.debug("SalesforceController:addPerson");
 		QueryResult<SalesforceUser> res = getForceApi().query(
-				"SELECT Id, FirstName, LastName FROM User", SalesforceUser.class);
+				"SELECT Id, FirstName, LastName FROM User",
+				SalesforceUser.class);
 		return res.getRecords();
 	}
 

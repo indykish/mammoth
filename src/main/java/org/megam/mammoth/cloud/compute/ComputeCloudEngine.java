@@ -28,7 +28,6 @@ public interface ComputeCloudEngine extends APICapability, CloudSourceable {
 			throws ComputeEngineException;
 
 	<C extends Object, D> ComputeCloudOutput<D> log(ComputeCloudInput<C> input)
-	        throws ComputeEngineException;
+			throws ComputeEngineException;
 
-	
 }

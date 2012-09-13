@@ -14,14 +14,13 @@ public class BasicCloudComputeSource extends ComputeCloudSource {
 	private String imageId = "";
 	private String instanceId = "";
 
-
 	/**
 	 * @return the defaultImageId
 	 */
 	public String getDefaultImageId() {
 		return defaultImageId;
 	}
-	
+
 	/**
 	 * @return the defaultInstanceId
 	 */
@@ -57,7 +56,7 @@ public class BasicCloudComputeSource extends ComputeCloudSource {
 	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
-	
+
 	public String getInstanceId() {
 		if (instanceId == null) {
 			instanceId = getDefaultInstanceId();
