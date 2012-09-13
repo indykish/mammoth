@@ -10,11 +10,31 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<properties>
 		<java-version>1.7</java-version>
 		<org.springframework-version>3.1.2.RELEASE</org.springframework-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.aspectj-version>1.7.0</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -26,18 +46,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+		
+		<!-- tag libs -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -94,25 +121,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>1</version>
 		</dependency>
 
-		<!-- Servlet -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -139,7 +148,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>4.1.0.Final</version>
 		</dependency>
 
-		<!-- Hibernate etc -->
+		<!-- Hibernate , hsql, postgres  -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -155,19 +164,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
+		
+		
 		<!-- Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
 
-		<!-- AWS EC2 -->
+		<!-- Amazon sdk -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
@@ -181,12 +193,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.2.2</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
-			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-
+		
 		<!--  Jackson: JSON processor -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -198,11 +205,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>jackson-databind</artifactId>
 			<version>2.0.5</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
-			<artifactId>jstl-api</artifactId>
-			<version>1.2</version>
-		</dependency>
+		
+		<!-- force.com api -->
 		<dependency>
 			<groupId>com.force.api</groupId>
 			<artifactId>force-rest-api</artifactId>
@@ -218,7 +222,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>force-springsecurity</artifactId>
 			<version>22.0.8-BETA</version>
 		</dependency>
-		<!--- Google Api-->
+               <!--- Google Api-->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
@@ -259,9 +263,54 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-base-1.0</artifactId>
 			<version>1.41.5</version>
+		</dependency><!--- Google Api-->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.10.3-beta</version>
 		</dependency>
+		<!--GOOGLE API oauth -->
+		<!--<dependency>
+		<groupId>com.google.oauth-client</groupId>
+		<artifactId>google-oauth-client</artifactId>
+		<version>1.10.1-beta</version>
+		</dependency>-->
+		<!--Google http-client-->
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client</artifactId>
+			<version>1.10.3-beta</version>
+		</dependency>
+		<!--google collection-->
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!--GDATA-->
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-client-1.0</artifactId>
+			<version>1.41.5</version>
+		</dependency>
+		<!--gdata appforyourdomain-->
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
+			<version>1.41.3</version>
+		</dependency>
+		<!--gdata base-->
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-base-1.0</artifactId>
+			<version>1.41.5</version>
+		</dependency> 
 	</dependencies>
 	<repositories>
+		<repository>
+			<id>webjars</id>
+			<url>http://webjars.github.com/m2</url>
+		</repository>
 		<!-- For Hibernate Validator -->
 		<repository>
 			<id>org.jboss.repository.release</id>
@@ -298,8 +347,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<name>force-rest-api repository on GitHub</name>
 			<url>http://jesperfj.github.com/force-rest-api/repository/</url>
 		</repository>
-		<!-- Gdata repository -->
-		<repository>
+                <!--Google repository-->
+                <repository>
 			<id>mandubian-mvn</id>
 			<url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>
 		</repository>

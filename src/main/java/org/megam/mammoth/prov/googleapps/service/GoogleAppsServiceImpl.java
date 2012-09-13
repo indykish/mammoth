@@ -100,84 +100,27 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 	protected UserService userService;
 	protected AppsGroupsService groupService;
 	private Validator validator;
-	protected final String domain = "megam.co.in";
-
+	
+	
 	@Override
-	public String addUser(String data) {
-        GoogleUser dat=new GoogleUser();
-		String username =dat.getUserName();
-		String givenName = dat.getGivenName();
-		String familyName = dat.getFamilyName();
-		String password = dat.getPassword();
+	public String addUser(GoogleUser data) {
+        
+		domainUrlBase = APPS_FEEDS_URL_BASE + data.getDomain() + "/";
 
-		// try {
-
-		// JsonParser parser=
-
-		/*
-		 * Object obj=parser.parse(jlist); JSONArray array=(JSONArray)obj;
-		 * System.out.println("======the 2nd element of array======");
-		 * System.out.println(array.get(1)); System.out.println();
-		 * 
-		 * JSONObject obj2=(JSONObject)array.get(1);
-		 * System.out.println("======field \"1\"==========");
-		 * System.out.println(obj2.get("1"));
-		 */
-
-		// org.codehaus.jackson.JsonFactory jf=new
-		// org.codehaus.jackson.JsonFactory();
-		// org.codehaus.jackson.JsonParser parser= jf.createJsonParser(jlist);
-		/*
-		 * List<String> list=new ArrayList<String>(); list.add(element);
-		 * Iterator<String> itr=list.iterator(); while(itr.hasNext()){
-		 * logger.info("LIST:"+itr.next()); }
-		 */
-		// while(parser.nextToken() != null){
-		// logger.info("CURRENT NAME    " +parser.getCurrentName());
-		// }
-		// username=parser.getText();
-		logger.info("CURRENT NAME" + username);
-		/*
-		 * } catch (IOException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); }
-		 */
-		logger.info("USERNAME:");
-		domainUrlBase = APPS_FEEDS_URL_BASE + domain + "/";
-
-		String adminEmail = "raja.pandiya@yahoo.com";
-		String adminPassword = "9787812535";
 		UserEntry createdUserEntry = null;
-		logger.info("In GOOGLE CREATE USER...........");
-
-		/*
-		 * nicknameService = new NicknameService(
-		 * "gdata-sample-AppsForYourDomain-NicknameService");
-		 * nicknameService.setUserCredentials(adminEmail, adminPassword);
-		 * 
-		 * emailListService = new EmailListService(
-		 * "gdata-sample-AppsForYourDomain-EmailListService");
-		 * emailListService.setUserCredentials(adminEmail, adminPassword);
-		 * 
-		 * emailListRecipientService = new EmailListRecipientService(
-		 * "gdata-sample-AppsForYourDomain-EmailListRecipientService");
-		 * emailListRecipientService.setUserCredentials(adminEmail,
-		 * adminPassword);
-		 * 
-		 * groupService = new AppsGroupsService(adminEmail, adminPassword,
-		 * domain, "gdata-sample-AppsForYourDomain-AppsGroupService");
-		 */
+		
 
 		try {
 
 			userService = new UserService(
-					"gdata-sample-AppsForYourDomain-UserService");
-			userService.setUserCredentials(adminEmail, adminPassword);
+					"Megam-Mammoth-UserService");
+			userService.setUserCredentials(data.getAdminEmail(), data.getAdminPassword());
 
-			groupService = new AppsGroupsService(adminEmail, adminPassword,
-					domain, "gdata-sample-AppsForYourDomain-AppsGroupService");
+			groupService = new AppsGroupsService(data.getAdminEmail(), data.getAdminPassword(),
+					data.getDomain(), "Megam-mammoth-AppsGroupService");
 
-			createdUserEntry = createUser(username, givenName, familyName,
-					password);
+			createdUserEntry = createUser(data.getUserName(), data.getGivenName(), data.getFamilyName(),
+					data.getPassword(), data.getDomain());
 		} catch (ServiceException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,15 +132,15 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 	}
 
 	public UserEntry createUser(String username, String givenName,
-			String familyName, String password)
+			String familyName, String password,String domain)
 			throws AppsForYourDomainException, ServiceException, IOException {
 
-		return createUser(username, givenName, familyName, password, null, null);
+		return createUser(username, givenName, familyName, password, null, null, domain);
 	}
 
-	public UserEntry createUser(String username, String givenName,
+	public UserEntry createUser(String username, String givenName, 
 			String familyName, String password, String passwordHashFunction,
-			Integer quotaLimitInMb) throws AppsForYourDomainException,
+			Integer quotaLimitInMb,String domain) throws AppsForYourDomainException,
 			ServiceException, IOException {
 
 		logger.info("Creating user '"

@@ -8,7 +8,7 @@ import com.amazonaws.util.json.JSONObject;
 @Service
 public interface GoogleAppsService {
 
-	public abstract String addUser(String dat);
+	public abstract String addUser(GoogleUser person);
 
 	public abstract Object listPeople();
 

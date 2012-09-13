@@ -68,10 +68,11 @@ public class SalesforceController {
 
 		return "redirect:/people/";
 	}
-	/*
-	 * @RequestMapping("/") public@ResponseBody String sfindex(){
-	 * 
-	 * return "salesforce"; }
-	 */
+	@RequestMapping("/salesforce")
+	public @ResponseBody
+	ModelAndView sfindex() {
+
+		return new ModelAndView("salesforce");
+	}
 
 }

@@ -35,6 +35,6 @@
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/sugarcrm.jsp"/>
 	</definition>
-	
+		
 </tiles-definitions>
 

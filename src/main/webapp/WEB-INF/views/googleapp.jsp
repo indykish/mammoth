@@ -1,19 +1,14 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
  <div class="container">
 <h1>Create new user</h1>
-<form>
-<fieldset>
+<form:form modelAttribute="gapps" method="post">
 <table>
- <tr><td>
- Username:<input type="text" id="username" name="username"/>
+ <tr>Username:<input type="text" id="username" name="username"/>
 </td><td>Firstname:<input type="text" id="firstname" name="firstname"/>
 </tr>
 <tr><td>givenName:<input type="text" id="givname" name="givenname"/></td>
@@ -23,9 +18,9 @@
 <tr><td>AdminPassword:<input type="text" id="adpass" name="adminpassword"/></td>
 <td>Domain:<input type="text" id="domain" name="domain"/></td></tr>
  </table>
- <p align="center"><input type="submit" id="createuser" value="Create" onclick="sforcecreate()"/>
- </fieldset>
-</form>
+ <p align="center"><input type="submit" id="createuser" value="Create"/>
+ 
+</form:form>
 </div>
   
   
@@ -128,7 +123,7 @@
 		spinner = new Spinner(opts).spin(target);
 	}
 
-	$('#sforcecreate').ajaxStart(function() {
+	$('#createuser').ajaxStart(function() {
 		fireSpinner();
 	}).ajaxStop(function() {
 		$('#loading').fadeOut();
@@ -171,11 +166,18 @@
 			
 	 $(document).ready(function(){
 		   $('form').submit(function(event){
-		     alert("Thanks for visiting!");
-		     var dat=$(this).serialize();
-		     alert(dat);
-		     //var dat=$('#username').val();
-		     //alert(dat);		     
+		     //alert("Thanks for visiting!");
+		     var dat=new Array();
+		     
+		      dat=$(this).serializeArray();
+		      
+		      
+		      
+		      
+		      //var jsonstring=JSON.stringify(dat);
+		     alert(JSON.stringify(dat));
+		    //var dat=$('#username').val();
+		   //alert(obj);		     
 		     $.post('./googleapps/create', dat, function(data) {
 		    	 window.location.reload(true);	    	
 							
@@ -186,6 +188,8 @@
 				return false;
 		   });
 		 });
+			
+			
 
 	function clearup_stuff() {
 		$('#error_message_box').hide();
