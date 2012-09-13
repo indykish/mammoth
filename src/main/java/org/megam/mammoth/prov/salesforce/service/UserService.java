@@ -3,11 +3,9 @@ package org.megam.mammoth.prov.salesforce.service;
 import java.util.List;
 
 import org.megam.mammoth.prov.info.SalesforceUser;
-import org.springframework.stereotype.Service;
 
 
-@Service
-public abstract interface PersonService {
+public abstract interface UserService {
 
 	public abstract List<SalesforceUser> listPeople();
 

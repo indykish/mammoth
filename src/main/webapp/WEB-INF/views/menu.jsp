@@ -6,20 +6,19 @@
 <div class="span3 bs-docs-sidebar">
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li class="nav-header">Connectors</li>
-				<li><a href="/salesforce/">Salesforce.com<i class="icon-chevron-right"></i></a></li>
-				<li><a href="./gooogleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
-				<li><a href="./liferay">Liferay<i class="icon-chevron-right"></i></a></li>
-				<li><a href="./sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
-				<li class="nav-header">Actions- Immutable</li>
-				<li><a href="#" id="iscomputeengineup"
-					onclick="isComputeEngineUp()">Cloud - Alive ?<i
+				<li><a href="/mammoth/salesforce">Salesforce.com<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/mammoth/gooogleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/mammoth/liferay">Liferay<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/mammoth/sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
+				<li class="nav-header">Compute(Amazon)		
+				</li>
+				<li><a href="/mammoth/cloudidentity">Cloud - Alive ?
+				<i	class="icon-chevron-right"></i></a></li>
+				<li><a href="/mammoth/cloudidentity">Describe<i
 						class="icon-chevron-right"></i></a></li>
-				<li><a href="#" id="printinfo" onclick="printInfo()">Describe<i
+				<li><a href="/mammoth/cloudidentity">List<i
 						class="icon-chevron-right"></i></a></li>
-				<li><a href="#" id="listallrawidentity"
-					onclick="listAllRawIdentity()">List<i
-						class="icon-chevron-right"></i></a></li>
-				<li><a href="#" id="log" onclick="log()">Log<i
+				<li><a href="/mammoth/cloudidentity">Log<i
 						class="icon-chevron-right"></i></a></li>
 						
 			</ul>

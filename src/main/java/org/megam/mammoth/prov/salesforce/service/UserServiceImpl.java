@@ -15,7 +15,7 @@ import com.force.sdk.oauth.context.ForceSecurityContextHolder;
 import com.force.sdk.oauth.context.SecurityContext;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public class UserServiceImpl implements UserService{
 
 	HttpRequest request = new HttpRequest();
 
@@ -23,27 +23,14 @@ public class PersonServiceImpl implements PersonService{
 
 	public String Token;
 
-	final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
-
-	private ForceApi getForceApi() {
-		SecurityContext sc = ForceSecurityContextHolder.get();
-
-		s.setAccessToken(sc.getSessionId());
-		s.setApiEndpoint(sc.getEndPointHost());
-		Token = s.getAccessToken();
-		String ENDpoint = s.getApiEndpoint();
-		logger.info("ENDPOINT" + ENDpoint);
-		logger.info("ACCES TOKEN=" + Token);
-		logger.debug("TOKEN" + Token);
-
-		return new ForceApi(s);
-	}
+	final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	public void addPerson(SalesforceUser person) {
 		getForceApi().createSObject("User", person);
 	}
 
 	public List<SalesforceUser> listPeople() {
+		logger.debug("SalesforceController:addPerson");
 		QueryResult<SalesforceUser> res = getForceApi().query(
 				"SELECT Id, FirstName, LastName FROM User", SalesforceUser.class);
 		return res.getRecords();
@@ -53,5 +40,18 @@ public class PersonServiceImpl implements PersonService{
 		getForceApi().deleteSObject("User", id);
 
 	}
+	
+	private ForceApi getForceApi() {
+		SecurityContext sc = ForceSecurityContextHolder.get();
+		s.setAccessToken(sc.getSessionId());
+		s.setApiEndpoint(sc.getEndPointHost());
+		Token = s.getAccessToken();
+		String ENDpoint = s.getApiEndpoint();
+		logger.info("ENDPOINT" + ENDpoint);
+		logger.info("ACCES TOKEN=" + Token);
+		logger.debug("TOKEN" + Token);
+		return new ForceApi(s);
+	}
+
 
 }

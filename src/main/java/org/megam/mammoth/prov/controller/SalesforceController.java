@@ -1,9 +1,5 @@
 package org.megam.mammoth.prov.controller;
 
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,64 +15,50 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.megam.mammoth.prov.info.SalesforceUser;
-import org.megam.mammoth.prov.salesforce.service.PersonService;
-import org.megam.mammoth.prov.salesforce.service.PersonServiceImpl;
-import com.force.api.ApiError;
+import org.megam.mammoth.prov.salesforce.service.UserService;
+import org.megam.mammoth.prov.salesforce.service.UserServiceImpl;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import javax.validation.Validator;
 
 @Controller
-
 public class SalesforceController {
-	
-	
-     
-	final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
-	
+
+	final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	private PersonService personService;
-	Validator validator;
-    @Autowired 
-	public SalesforceController(Validator validator){
-		this.validator=validator;
+	private UserService personService;
+
+	private Validator validator;
+
+	@Autowired
+	public SalesforceController(Validator validator) {
+		this.validator = validator;		
 	}
-	@RequestMapping("/")	
+
+	@RequestMapping(value= "/salesforce")
 	public String listPeople(Map<String, Object> map) {
-
-		map.put("person", new SalesforceUser());
-		map.put("peopleList", personService.listPeople());
-
 		return "salesforce";
 	}
+	
+	@RequestMapping(value= "/salesforce/list", method = RequestMethod.GET)
+	public 	ModelAndView  listPeople() {
+		ModelAndView listModelAndView = new ModelAndView("salesforce");
+		listModelAndView.addObject("salesforceusers", personService.listPeople());
+		return listModelAndView;
+	}
 
-	@RequestMapping(value = "/salesforce/create",method=RequestMethod.POST)
+	@RequestMapping(value = "/salesforce/create", method = RequestMethod.POST)
 	public String addPerson(SalesforceUser dat) {
-		
-         
-		personService.addPerson(dat);		
-		return "OK";
+		logger.debug("SalesforceController:addPerson");
+		personService.addPerson(dat);
+		return "salesforce";
 	}
 
 	@RequestMapping("/salesforce/delete/{personId}")
 	public String deletePerson(@PathVariable("personId") String personId) {
-
 		personService.removePerson(personId);
-
-		return "redirect:/people/";
+		return "redirect:/salesforce/";
 	}
-	/*@RequestMapping("/")
-public@ResponseBody String sfindex(){
-
-    return "salesforce";
-}*/
-
 
 }

@@ -44,6 +44,12 @@ public class CloudIdentityController<C> {
 		this.validator = validator;
 	}
 
+	public @RequestMapping(value = "/cloudidentity", method = RequestMethod.GET)
+	@ResponseBody
+	String myhome() {
+		return "amazon";
+	}
+
 	public @RequestMapping(value = "/cloudidentity/version/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	String version(@Valid @PathVariable String id) {
@@ -69,30 +75,32 @@ public class CloudIdentityController<C> {
 
 	public @RequestMapping(value = "/cloudidentity/list/{instid}", method = RequestMethod.GET)
 	@ResponseBody
-	String list(@Valid @RequestParam(value="instid", required=false) String instid) {
+	String list(
+			@Valid @RequestParam(value = "instid", required = false) String instid) {
 		ComputeCloudOutput<C> output = null;
-		
+
 		try {
-			
+
 			output = engine.list(new ComputeCloudInput<String>(instid));
-			
+
 		} catch (ComputeEngineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return engine.builder(output).asJson(output);
 	}
-	
+
 	public @RequestMapping(value = "/cloudidentity/log/{instid}", method = RequestMethod.GET)
 	@ResponseBody
-	String log(@Valid @RequestParam(value="instid", required=false) String instid) {
+	String log(
+			@Valid @RequestParam(value = "instid", required = false) String instid) {
 		logger.info("IN LIST METHOD...................." + instid);
 		ComputeCloudOutput<C> output = null;
-		
+
 		try {
-			
+
 			output = engine.log(new ComputeCloudInput<String>(instid));
-			
+
 		} catch (ComputeEngineException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,7 +172,5 @@ public class CloudIdentityController<C> {
 		}
 		return engine.builder(output).asJson(output);
 	}
-	
-	
 
 }
