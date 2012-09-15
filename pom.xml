@@ -228,83 +228,31 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>google-api-client</artifactId>
 			<version>1.10.3-beta</version>
 		</dependency>
-		<!--GOOGLE API oauth -->
-		<!--<dependency>
-		<groupId>com.google.oauth-client</groupId>
-		<artifactId>google-oauth-client</artifactId>
-		<version>1.10.1-beta</version>
-		</dependency>-->
-		<!--Google http-client-->
 		<dependency>
 			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client</artifactId>
 			<version>1.10.3-beta</version>
 		</dependency>
-		<!--google collection-->
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!--GDATA-->
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-client-1.0</artifactId>
 			<version>1.41.5</version>
 		</dependency>
-		<!--gdata appforyourdomain-->
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
-			<version>1.41.3</version>
-		</dependency>
-		<!--gdata base-->
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-base-1.0</artifactId>
 			<version>1.41.5</version>
-		</dependency><!--- Google Api-->
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>1.10.3-beta</version>
 		</dependency>
-		<!--GOOGLE API oauth -->
-		<!--<dependency>
-		<groupId>com.google.oauth-client</groupId>
-		<artifactId>google-oauth-client</artifactId>
-		<version>1.10.1-beta</version>
-		</dependency>-->
-		<!--Google http-client-->
-		<dependency>
-			<groupId>com.google.http-client</groupId>
-			<artifactId>google-http-client</artifactId>
-			<version>1.10.3-beta</version>
-		</dependency>
-		<!--google collection-->
-		<dependency>
-			<groupId>com.google.collections</groupId>
-			<artifactId>google-collections</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<!--GDATA-->
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-client-1.0</artifactId>
-			<version>1.41.5</version>
-		</dependency>
-		<!--gdata appforyourdomain-->
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
 			<version>1.41.3</version>
-		</dependency>
-		<!--gdata base-->
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-base-1.0</artifactId>
-			<version>1.41.5</version>
-		</dependency> 
+		</dependency>		
 	</dependencies>
 	<repositories>
 		<repository>
