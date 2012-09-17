@@ -10,31 +10,31 @@
 		<fieldset>
 			<table>
 				<tr>
-					<td>Username:<input type="text" id="username" name="username" />
+					<td>Username:<input type="text" id="UserName" name="UserName" />
 					</td>
-					<td>Firstname:<input type="text" id="firstname"
-						name="firstname" />
+					<td>Firstname:<input type="text" id="FirstName"
+						name="FirstName" />
 				</tr>
 				<tr>
-					<td>Email:<input type="text" id="email" name="email" /></td>
-					<td>Alias:<input type="text" id="alias" /></td>
+					<td>Email:<input type="text" id="email" name="Email" /></td>
+					<td>Alias:<input type="text" id="Alias" name="Alias"/></td>
 				</tr>
 				<tr>
-					<td>ProfileId:<select name="profileid" id="profile"
+					<td>ProfileId:<select name="ProfileId" id="profile"
 						style="width: 158px;">
 							<option value="none">----Select ----</option>
 							<option value="00e90000000Gmi2">Standard-user</option>
 					</select>
 					</td>
-					<td>LastName:<input type="text" id="lastname" name="lastname" /></td>
+					<td>LastName:<input type="text" id="lastname" name="LastName" /></td>
 				</tr>
 				<tr>
-					<td>TimeZoneSidekey:<select name="timezone" id="timezon"
+					<td>TimeZoneSidekey:<select name="TimeZoneSidKey" id="timezon"
 						style="width: 158px;">
 							<option value="none">----Select ----</option>
 							<option value="America/Los_Angeles">LosAngeles</option>
 					</select>
-					<td>LocaleSideKey:<select name="locale" id="localy"
+					<td>LocaleSideKey:<select name="LocaleSidKey" id="localy"
 						style="width: 158px;">
 							<option value="none">----Select ----</option>
 							<option value="en_US">US</option>
@@ -43,17 +43,16 @@
 				</tr>
 				<tr>
 					<td>EmailNcodingkey:<input type="text" id="encode"
-						value="UTF-8" name="encoding" readonly="true" />
+						value="UTF-8" name="EmailEncodingKey" readonly="true" />
 					</td>
-					<td>LanguageLocaleKey:<select name="language" id="languagekey"
+					<td>LanguageLocaleKey:<select name="LanguageLocaleKey" id="languagekey"
 						style="width: 158px;">
 							<option value="none">----Select ----</option>
 							<option value="en_US">English -US</option>
 					</select></td>
 				</tr>
 			</table>
-			<p align="center">
-				<input type="submit" id="createuser" value="Create"
+			<p align="center"><input type="submit" id="createuser" value="Create"
 					onclick="createUser()" />
 		</fieldset>
 	</form>
@@ -170,7 +169,7 @@
 			type : "POST",
 			dataType : "json",
 			async : true,
-			url : "/mammoth/salesforce/create",
+			url : "./salesforce/create",
 			data : salesforceuser,
 			beforeSend : function() {
 			},

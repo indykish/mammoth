@@ -1,5 +1,6 @@
 package org.megam.mammoth.prov.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.util.json.JSONObject;
+import com.google.gdata.data.appsforyourdomain.AppsForYourDomainException;
+import com.google.gdata.util.ServiceException;
 import com.google.gson.Gson;
 
 
@@ -38,16 +41,16 @@ public class GoogleAppsController {
 	Validator validator;
 
 	final Logger logger = LoggerFactory.getLogger(GoogleAppsController.class);
-
+	GoogleUser people=new GoogleUser(); 
 	@Autowired
 	public GoogleAppsController(Validator validator) {
 		this.validator = validator;
 	}
 
 	@RequestMapping(value = "/googleapps/create", method = RequestMethod.POST)
-	public@ResponseBody String create(@RequestBody String dat) {
+	public String create(@RequestBody String dat) {
          logger.info("DATA"+dat);
-         GoogleUser people=new GoogleUser();
+         
          
         StringTokenizer stk =new StringTokenizer(dat, "&");
         
@@ -61,17 +64,18 @@ public class GoogleAppsController {
          logger.info("PEOPLE STRING>>>>>>>>>>>>"+people.toString());
          
 		googleserv.addUser(people);
-		return "googleapp";
+		
+		return "redirect:/googleapps/list";
 
 	}
 
 	@RequestMapping(value = "/googleapps/list")
-	public String listPeople(Map<String, Object> map) {
+	public@ResponseBody String listPeople(Map<String, Object> map) throws AppsForYourDomainException, ServiceException, IOException {
+        //GoogleUser data=new GoogleUser();
+		map.put("person", new GoogleUser());
+		map.put("peopleList", googleserv.listPeople(people));
 
-		map.put("person", new SalesforceUser());
-		map.put("peopleList", googleserv.listPeople());
-
-		return "salesforce";
+		return "googleappslist";
 	}
 
 	@RequestMapping("/googleapps/delete/{personId}")

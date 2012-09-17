@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+
+
 @Controller
 public class SalesforceController {
 
@@ -45,17 +47,21 @@ public class SalesforceController {
 	}
 	
 	@RequestMapping(value= "/salesforce/list", method = RequestMethod.GET)
-	public 	ModelAndView  listPeople() {
+	public 	ModelAndView  listPeople(Map<String, Object> map) {
+		logger.debug("SalesforceController:List");
 		ModelAndView listModelAndView = new ModelAndView("salesforce");
-		listModelAndView.addObject("salesforceusers", personService.listPeople());
+		map.put("person", new SalesforceUser());
+		map.put("peopleList", personService.listPeople());
+
+		//listModelAndView.addObject("salesforceusers", personService.listPeople());*/
 		return listModelAndView;
 	}
 
 	@RequestMapping(value = "/salesforce/create", method = RequestMethod.POST)
 	public String addPerson(SalesforceUser dat) {
 		logger.debug("SalesforceController:addPerson");
-		personService.addPerson(dat);
-		return "salesforce";
+		//personService.addPerson(dat);
+		return "redirect:/salesforce/list";
 	}
 
 	@RequestMapping("/salesforce/delete/{personId}")

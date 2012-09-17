@@ -34,7 +34,7 @@
 			</tr>
 		</table>
 		<p align="center">
-			<input type="submit" id="createuser" value="Create" />
+			<input type="submit" id="createuser" value="Create"/>
 	</form:form>
 </div>
 
@@ -194,7 +194,7 @@
 			}, function(data) {
 				var response = JSON.parse(data.response);
 				alert("Error: " + response[0].id);
-			});
+			}); 
 			return false;
 		});
 	});

@@ -29,6 +29,11 @@
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/googleapp.jsp"/>
 	</definition>
+	<definition name="googleappslist" extends="base.definition">
+		<put-attribute name="title" value="Google Apps Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/googleappslist.jsp"/>
+	</definition>
 	<definition name="liferay" extends="base.definition">
 		<put-attribute name="title" value="Liferay Connector"/>
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>

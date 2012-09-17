@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class SalesforceUser {
 	@Autowired
-	String Username;
+	String UserName;
 	String FirstName;
 	String Email;
 	String Alias;
@@ -15,13 +15,12 @@ public class SalesforceUser {
 	String EmailEncodingKey;
 	String LanguageLocaleKey;
 
-	@Autowired
-	public String getUsername() {
-		return Username;
+	public String getUserName() {
+		return UserName;
 	}
 
-	public void setUsername(String username) {
-		Username = username;
+	public void setUserName(String userName) {
+		UserName = userName;
 	}
 
 	public String getFirstName() {

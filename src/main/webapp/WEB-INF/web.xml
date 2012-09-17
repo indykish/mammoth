@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns="http://java.sun.com/xml/ns/javaee"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-version="3.0">
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 	<display-name>Megam - mammoth</display-name>
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -27,10 +27,11 @@ version="3.0">
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/salesforce/*</url-pattern>
+		<url-pattern>/salesforce/create</url-pattern>
 	</servlet-mapping>
-	<!-- TO-DO : this is stupid. Don't remove this line. When a wildcard is provided in the above line, why do we need this. read
-	the servlet 3.0 api about url-pattern to tweak this. -->
+	<!-- TO-DO : this is stupid. Don't remove this line. When a wildcard is 
+		provided in the above line, why do we need this. read the servlet 3.0 api 
+		about url-pattern to tweak this. -->
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/salesforce/home</url-pattern>

@@ -7,7 +7,7 @@
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li class="nav-header">Connectors</li>
 				<li><a href="/mammoth/salesforce">Salesforce.com<i class="icon-chevron-right"></i></a></li>
-				<li><a href="/mammoth/gooogleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
+				<li><a href="/mammoth/googleapps">Google Apps<i class="icon-chevron-right"></i></a></li>
 				<li><a href="/mammoth/liferay">Liferay<i class="icon-chevron-right"></i></a></li>
 				<li><a href="/mammoth/sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
 				<li class="nav-header">Compute(Amazon)		
