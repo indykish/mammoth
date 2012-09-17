@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
 <div class="container">
 	<h1>Create new user</h1>
-	<a href="./salesforce/create" class="btn btn-link">sign in</a>
 	<form method="post" action="/mammoth/salesforce/create">
 		<fieldset>
 			<table>
@@ -56,7 +56,7 @@
 				<input type="submit" id="createuser" value="Create"
 					onclick="createUser()" />
 		</fieldset>
-		</form>
+	</form>
 </div>
 
 

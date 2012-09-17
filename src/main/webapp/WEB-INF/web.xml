@@ -29,9 +29,14 @@ version="3.0">
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/salesforce/*</url-pattern>
 	</servlet-mapping>
+	<!-- TO-DO : this is stupid. Don't remove this line. When a wildcard is provided in the above line, why do we need this. read
+	the servlet 3.0 api about url-pattern to tweak this. -->
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/salesforce/home</url-pattern>
+	</servlet-mapping>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 </web-app>

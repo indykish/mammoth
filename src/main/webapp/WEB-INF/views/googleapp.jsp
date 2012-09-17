@@ -4,31 +4,47 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
- <div class="container">
-<h1>Create new user</h1>
-<form:form modelAttribute="gapps" method="post">
-<table>
- <tr>Username:<input type="text" id="username" name="username"/>
-</td><td>Firstname:<input type="text" id="firstname" name="firstname"/>
-</tr>
-<tr><td>givenName:<input type="text" id="givname" name="givenname"/></td>
-<td>Familyname:<input type="text" id="familyname" name="familyname"/></td></tr>
-<tr><td>Password:<input type="text" id="password" name="password"/></td>
-<td>AdminEmail:<input type="text" id="ademail" name="adminemail"/></td></tr>
-<tr><td>AdminPassword:<input type="text" id="adpass" name="adminpassword"/></td>
-<td>Domain:<input type="text" id="domain" name="domain"/></td></tr>
- </table>
- <p align="center"><input type="submit" id="createuser" value="Create"/>
- 
-</form:form>
+<div class="container">
+	<tiles:insertAttribute name="subhead" />
+
+	<h1>Create new user</h1>
+	<form:form modelAttribute="gapps" method="post">
+		<table>
+			<tr>
+				Username:
+				<input type="text" id="username" name="username" />
+				</td>
+				<td>Firstname:<input type="text" id="firstname"
+					name="firstname" />
+			</tr>
+			<tr>
+				<td>givenName:<input type="text" id="givname" name="givenname" /></td>
+				<td>Familyname:<input type="text" id="familyname"
+					name="familyname" /></td>
+			</tr>
+			<tr>
+				<td>Password:<input type="text" id="password" name="password" /></td>
+				<td>AdminEmail:<input type="text" id="ademail"
+					name="adminemail" /></td>
+			</tr>
+			<tr>
+				<td>AdminPassword:<input type="text" id="adpass"
+					name="adminpassword" /></td>
+				<td>Domain:<input type="text" id="domain" name="domain" /></td>
+			</tr>
+		</table>
+		<p align="center">
+			<input type="submit" id="createuser" value="Create" />
+	</form:form>
 </div>
-  
-  
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
-  
- 
-  
- <script type="text/javascript">
+
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
 	var spinner;
 	var listgrid;
 	var upgrid;
@@ -129,10 +145,7 @@
 		$('#loading').fadeOut();
 		spinner.stop();
 	});
-	
-	
-	
-	
+
 	/*function sforcecreate() {		
 
 		alert("entry");
@@ -163,42 +176,34 @@
 		return false;
 				});
 			}*/
-			
-	 $(document).ready(function(){
-		   $('form').submit(function(event){
-		     //alert("Thanks for visiting!");
-		     var dat=new Array();
-		     
-		      dat=$(this).serializeArray();
-		      
-		      
-		      
-		      
-		      //var jsonstring=JSON.stringify(dat);
-		     alert(JSON.stringify(dat));
-		    //var dat=$('#username').val();
-		   //alert(obj);		     
-		     $.post('./googleapps/create', dat, function(data) {
-		    	 window.location.reload(true);	    	
-							
-				}, function(data) {
-					var response = JSON.parse(data.response);
-					alert("Error: "+response[0].id);
-				});
-				return false;
-		   });
-		 });
-			
-			
+
+	$(document).ready(function() {
+		$('form').submit(function(event) {
+			//alert("Thanks for visiting!");
+			var dat = new Array();
+
+			dat = $(this).serializeArray();
+
+			//var jsonstring=JSON.stringify(dat);
+			alert(JSON.stringify(dat));
+			//var dat=$('#username').val();
+			//alert(obj);		     
+			$.post('./googleapps/create', dat, function(data) {
+				window.location.reload(true);
+
+			}, function(data) {
+				var response = JSON.parse(data.response);
+				alert("Error: " + response[0].id);
+			});
+			return false;
+		});
+	});
 
 	function clearup_stuff() {
 		$('#error_message_box').hide();
 		$('#alivegrid').hide();
 	}
-	
-	
 </script>
- 
-  
 
-    
+
+
