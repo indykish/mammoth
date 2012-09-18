@@ -13,7 +13,7 @@
 			<div class="span7">
 				<h3>Our hunter is there to help you.</h3>
 			</div>
-			<div class="span4">
+			<div class="span3">
 				<div id="message_display_box">
 					<a href="<c:url value="/" />"> <img
 						src="<c:url value="/resources/images/mammoth_hunter.png"/>"

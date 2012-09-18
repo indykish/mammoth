@@ -25,16 +25,19 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/salesforce/create</url-pattern>
-	</servlet-mapping>
-	<!-- TO-DO : this is stupid. Don't remove this line. When a wildcard is 
-		provided in the above line, why do we need this. read the servlet 3.0 api 
+	<!-- TO-DO : this is stupid. Don't remove this line. Why not replace it with a wildcard., why do we need this. read the servlet 3.0 api 
 		about url-pattern to tweak this. -->
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/salesforce/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/salesforce/create</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/salesforce/delete/*</url-pattern>
 	</servlet-mapping>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>

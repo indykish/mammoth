@@ -12,7 +12,7 @@
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 	<definition name="home" extends="base.definition">
-		<put-attribute name="title" value="mammoth - cloud identity" />	
+		<put-attribute name="title" value="mammoth - cloud identity" />
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
 	<definition name="salesforce_auth" extends="base.definition">
@@ -23,7 +23,12 @@
 		<put-attribute name="title" value="Salesforce Connector"/>
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/salesforce.jsp"/>
-	</definition>	
+	</definition>
+	<definition name="salesforce_list" extends="base.definition">
+		<put-attribute name="title" value="Salesforce Connector"/>
+		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/salesforce_list.jsp"/>
+	</definition>
 	<definition name="googleapps" extends="base.definition">
 		<put-attribute name="title" value="Google Apps Connector"/>
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
@@ -43,6 +48,6 @@
 		<put-attribute name="title" value="SugarCRM Connector"/>
 		<put-attribute name="subhead" value="/WEB-INF/views/subheader.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/sugarcrm.jsp"/>
-	</definition>		
+	</definition>
 </tiles-definitions>
 

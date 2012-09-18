@@ -12,11 +12,11 @@
 		<div class="row">
 			<div class="span8 offset2">
 				<div class="page-header">
-					<h1>Simple CRUD Page</h1>
+					<h1>List</h1>
 				</div>
 				
-                <c:if test="${!empty peopleList}">
-                <h3>People</h3>
+                <c:if test="${!empty userList}">
+                <h3>Users</h3>
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -25,10 +25,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${peopleList}" var="person">
+                    <c:forEach items="${userList}" var="user">
                         <tr>
-                            <td>${person.lastName}, ${person.firstName}</td>
-                            <td><form action="delete/${person.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form></td>
+                            <td>${user.lastName}, ${user.firstName}</td>
+                            <td><form action="delete/${user.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form></td>
                         </tr>
                     </c:forEach>
                     </tbody>

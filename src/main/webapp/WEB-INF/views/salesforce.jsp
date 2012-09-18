@@ -1,141 +1,84 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 
 
 <div class="container">
 	<h1>Create new user</h1>
-	<form method="post" action="/mammoth/salesforce/create">
-		<fieldset>
-			<table>
-				<tr>
-					<td>Username:<input type="text" id="UserName" name="UserName" />
+	<form:form method="POST" id="createuser" action="create"
+		modelAttribute="user">
+		<table>
+			<tr>
+				<td>Username</td>
+				<td><form:input path="userName" /></td>
+			</tr>
+			<tr>
+				<td>ProfileId</td>
+				<td><form:select path="profileId" label="Profile">
+						<form:option value="none" label="----Select ----" />
+						<form:option value="00e90000000yb2W" label="Standard-user" />
+							<form:option value="00e90000000GVYJ" label="Force.com free user"
+							selected="selected" />							
+					</form:select>
 					</td>
-					<td>Firstname:<input type="text" id="FirstName"
-						name="FirstName" />
-				</tr>
-				<tr>
-					<td>Email:<input type="text" id="email" name="Email" /></td>
-					<td>Alias:<input type="text" id="Alias" name="Alias"/></td>
-				</tr>
-				<tr>
-					<td>ProfileId:<select name="ProfileId" id="profile"
-						style="width: 158px;">
-							<option value="none">----Select ----</option>
-							<option value="00e90000000Gmi2">Standard-user</option>
-					</select>
-					</td>
-					<td>LastName:<input type="text" id="lastname" name="LastName" /></td>
-				</tr>
-				<tr>
-					<td>TimeZoneSidekey:<select name="TimeZoneSidKey" id="timezon"
-						style="width: 158px;">
-							<option value="none">----Select ----</option>
-							<option value="America/Los_Angeles">LosAngeles</option>
-					</select>
-					<td>LocaleSideKey:<select name="LocaleSidKey" id="localy"
-						style="width: 158px;">
-							<option value="none">----Select ----</option>
-							<option value="en_US">US</option>
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td>EmailNcodingkey:<input type="text" id="encode"
-						value="UTF-8" name="EmailEncodingKey" readonly="true" />
-					</td>
-					<td>LanguageLocaleKey:<select name="LanguageLocaleKey" id="languagekey"
-						style="width: 158px;">
-							<option value="none">----Select ----</option>
-							<option value="en_US">English -US</option>
-					</select></td>
-				</tr>
-			</table>
-			<p align="center"><input type="submit" id="createuser" value="Create"
-					onclick="createUser()" />
-		</fieldset>
-	</form>
+			</tr>
+			<tr>
+				<td>Firstname</td>
+				<td><form:input path="firstName" /></td>
+			</tr>
+			<tr>
+				<td>Lastname</td>
+				<td><form:input path="lastName" /></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><form:input path="email" /></td>
+			</tr>
+			<tr>
+				<td>Alias</td>
+				<td><form:input path="alias" /></td>
+			</tr>
+			<tr>
+				<td>Time Zone</td>
+				<td><form:select path="timeZoneSidKey">
+						<form:option value="none" label="----Select ----" />
+						<form:option value="America/Los_Angeles" label="LosAngeles"
+							selected="selected" />
+					</form:select></td>
+			</tr>
+			<tr>
+				<td>Locale</td>
+				<td><form:select path="localeSidKey">
+						<form:option value="none" label="----Select ----" />
+						<form:option value="en_US" label="US" selected="selected" />
+					</form:select></td>
+			</tr>
+			<tr>
+				<td>Characterset Encoding</td>
+				<td><form:input path="emailEncodingKey" value="UTF-8"
+						readonly="true" /></td>
+			</tr>
+			<tr>
+				<td>Language</td>
+				<td><form:select path="languageLocaleKey">
+						<form:option value="none" label="----Select ----" />
+						<form:option value="en_US" label="English -US" selected="selected" />
+					</form:select></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Create"
+					class="btn btn-primary btn-large" onclick="createUser()" /></td>
+			</tr>
+		</table>
+	</form:form>
 </div>
 
 
 <script type="text/javascript">
 	var spinner;
-	var listgrid;
-	var upgrid;
-	var selectedInstanceId = null;
 
 	$(document).ready(function() {
 		clearup_stuff();
 	});
-
-	var alivecolumns = [ {
-		id : "endpoint",
-		name : "End Point",
-		field : "endpoint",
-		width : 400,
-		minWidth : 200,
-		rerenderOnResize : true
-	}, {
-		id : "regionName",
-		name : "RegionName",
-		field : "regionName",
-		width : 200,
-		minWidth : 150,
-		rerenderOnResize : true
-	} ];
-
-	var listcolumns = [ {
-		id : "instanceId",
-		name : "InstanceId",
-		field : "instanceId",
-		width : 90,
-		rerenderOnResize : true,
-		behavior : "selectAndMove",
-		selectable : true,
-	}, {
-		id : "imageId",
-		name : "ImageId",
-		field : "imageId",
-		width : 90,
-		cssClass : "cell-title",
-		selectable : true,
-		rerenderOnResize : true
-	}, {
-		id : "instanceType",
-		name : "InstanceType",
-		field : "instanceType",
-		width : 100,
-		selectable : true,
-		rerenderOnResize : true
-	}, {
-		id : "state",
-		name : "State",
-		field : "state",
-		selectable : true,
-		width : 100,
-		rerenderOnResize : true
-	}, {
-		id : "owner",
-		name : "OwnerId",
-		field : "owner",
-		selectable : true,
-		width : 90,
-		rerenderOnResize : true
-	}, {
-		id : "publicDnsName",
-		name : "PublicDnsName",
-		field : "publicDnsName",
-		selectable : true,
-		width : 130,
-		rerenderOnResize : true
-	} ];
-
-	var options = {
-		editable : false,
-		enableCellNavigation : true,
-		showHeaderRow : true,
-	};
 
 	function fireSpinner() {
 		var opts = {
@@ -162,14 +105,13 @@
 	});
 
 	function createUser() {
-		var salesforceuser = $(this).serialize();
-		alert(salesforceuser);
+		var salesforceuser = $(this).serializeObject();
 
 		$.ajax({
 			type : "POST",
 			dataType : "json",
 			async : true,
-			url : "./salesforce/create",
+			url : "/salesforce/create",
 			data : salesforceuser,
 			beforeSend : function() {
 			},
@@ -184,15 +126,11 @@
 			always : function() {
 			}
 		});
-		return false;
+		returnfalse;
 
 	}
 
 	function clearup_stuff() {
 		$('#error_message_box').hide();
-		$('#alivegrid').hide();
 	}
 </script>
-
-
-

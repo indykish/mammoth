@@ -4,6 +4,9 @@
 
 
 <div class="container">
-	<h2>Sign in: Salesforce (OAuth)</h2>
-	<a href="./salesforce/home" class="btn btn-primary">sign in</a>	
+	<h1>Sign in</h1>
+	<div class="span5">
+		<a href="./salesforce/home"
+			class="btn btn-primary btn-large btn-block">Click here to sign in</a>
+	</div>
 </div>
