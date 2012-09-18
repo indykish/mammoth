@@ -327,6 +327,7 @@ public class AppsForYourDomainClient {
    URL retrieveUrl = new URL(domainUrlBase + "user/" + SERVICE_VERSION + "/");
    AppsForYourDomainQuery query = new AppsForYourDomainQuery(retrieveUrl);
    query.setStartUsername(startUsername);
+   LOGGER.info("END OF APPS;;;;;;;;;;;;;;;;;;;;;;;;;;;");
    return userService.query(query, UserFeed.class);
  }
 

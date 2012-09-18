@@ -19,6 +19,8 @@ public interface GoogleAppsService {
 
 	public abstract void removePerson(String personId);
 
-	public abstract List<GoogleUser> listPeople(GoogleUser data) throws AppsForYourDomainException, ServiceException, IOException;
+	public abstract List<GoogleUser> GlistPeople(GoogleUser data);
+
+	
 
 }

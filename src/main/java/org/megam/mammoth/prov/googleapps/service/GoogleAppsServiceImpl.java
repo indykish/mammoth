@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.services.simpleworkflow.model.TaskList;
 import com.google.gdata.client.appsforyourdomain.AppsGroupsService;
 import com.google.gdata.client.appsforyourdomain.EmailListRecipientService;
 import com.google.gdata.client.appsforyourdomain.EmailListService;
@@ -22,6 +23,7 @@ import com.google.gdata.client.appsforyourdomain.NicknameService;
 import com.google.gdata.client.appsforyourdomain.UserService;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.Person;
+import com.google.gdata.data.Source;
 import com.google.gdata.data.appsforyourdomain.AppsForYourDomainException;
 import com.google.gdata.data.appsforyourdomain.Login;
 import com.google.gdata.data.appsforyourdomain.Name;
@@ -114,40 +116,59 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 		 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<GoogleUser> listPeople(GoogleUser data) throws AppsForYourDomainException, ServiceException, IOException {
+	public List<GoogleUser> GlistPeople(GoogleUser data) {
 		
 		//GoogleUser data=new GoogleUser();
+		 List<GoogleUser> glist=new ArrayList<GoogleUser>();
 		UserFeed usrfd = null;
 		String adminEmail=data.getAdminEmail();
 		String adminPassword=data.getAdminPassword();
 		String domain=data.getDomain();
 		logger.info("IN LIST METHOD::::::::::::::::::"+adminEmail+""+adminPassword+""+domain);
 				
-		try {
-			AppsForYourDomainClient apclient = new AppsForYourDomainClient(adminEmail,
-					adminPassword, domain);
-			   usrfd=apclient.retrieveAllUsers();
-			
-			String id=usrfd.getId();
-			String logo=usrfd.getLogo();
-			String localname=usrfd.getExtensionLocalName();
-						
-			logger.info("RETRIVED VALUE.................''''''''''''"+id+""+logo+""+localname);
-			//apclient.retrieveAllUsers();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		List<UserEntry> usetry=usrfd.getEntries();
+			AppsForYourDomainClient apclient;
+			try {
+				apclient = new AppsForYourDomainClient(adminEmail,adminPassword, domain);
+				 usrfd=apclient.retrievePageOfUsers(adminEmail);
+				 logger.info("IN TRY >>>>>>>>>>");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 	
+			logger.info("USERFEED OBJECT"+usrfd);
+			GoogleUser guser=new GoogleUser();
+		       List<UserEntry> list=usrfd.getEntries();
+		       
+		        UserEntry uetry=list.get(0);
+		        Quota quota=uetry.getQuota();
+		        int n=quota.getLimit();
+		        
+		        Name name=uetry.getName();	
+		        Login login=uetry.getLogin();
+		        
+		        String username=login.getUserName();
+		        String password=login.getPassword();
+		        boolean admin=login.getAdmin();
+		        String familyname=name.getFamilyName();
+		        String givenname=name.getGivenName();
+		        
+		        guser.setUserName(username);
+		        guser.setPassword(password);
+		        guser.setAdmin(admin);
+		        guser.setFamilyName(familyname);
+		        guser.setGivenName(givenname);
+		        
+		         
+		        logger.info("FETCHED DETAIL :::::::::::::::"+familyname+":::::::::::::"+givenname+":::::::::::"+username+":::::::::::::::"+admin+n);
+		        
+		       
+		        glist.add(guser);
+		        
+		return glist;
 		
-		List<GoogleUser> gulist = new ArrayList<GoogleUser>();
-		gulist.add((GoogleUser) usetry);
-		logger.info("RETRIVED VALUE.................''''''''''''"+usrfd);
-		//return null;
-		return (java.util.List<GoogleUser>) usrfd;
 	}
 
 	@Override

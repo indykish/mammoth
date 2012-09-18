@@ -10,6 +10,7 @@ import javax.validation.Validator;
 
 import org.json.simple.JSONArray;
 import org.megam.mammoth.prov.googleapps.service.GoogleAppsService;
+import org.megam.mammoth.prov.googleapps.service.GoogleAppsServiceImpl;
 import org.megam.mammoth.prov.info.GoogleUser;
 import org.megam.mammoth.prov.info.SalesforceUser;
 import org.slf4j.Logger;
@@ -39,6 +40,8 @@ public class GoogleAppsController {
 	@Autowired
 	private GoogleAppsService googleserv;
 	Validator validator;
+	
+	GoogleAppsServiceImpl personService;
 
 	final Logger logger = LoggerFactory.getLogger(GoogleAppsController.class);
 	GoogleUser people=new GoogleUser(); 
@@ -70,12 +73,15 @@ public class GoogleAppsController {
 	}
 
 	@RequestMapping(value = "/googleapps/list")
-	public@ResponseBody String listPeople(Map<String, Object> map) throws AppsForYourDomainException, ServiceException, IOException {
+	public ModelAndView listPeople(Map<String, Object> map){
         //GoogleUser data=new GoogleUser();
+		ModelAndView listModelAndView = new ModelAndView("googleappslist");
+		
 		map.put("person", new GoogleUser());
-		map.put("peopleList", googleserv.listPeople(people));
-
-		return "googleappslist";
+		map.put("peopleList", googleserv.GlistPeople(people));
+		
+		//listModelAndView.addObject("googleuser", personService.GlistPeople(people));   
+		return listModelAndView;
 	}
 
 	@RequestMapping("/googleapps/delete/{personId}")

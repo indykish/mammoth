@@ -12,7 +12,14 @@ public class GoogleUser {
 	String adminEmail;
 	String adminPassword;
 	String Domain;
+	boolean admin;
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 	public String getDomain() {
 		return Domain;
 	}

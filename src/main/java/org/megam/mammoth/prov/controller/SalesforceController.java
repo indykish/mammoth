@@ -49,11 +49,11 @@ public class SalesforceController {
 	@RequestMapping(value= "/salesforce/list", method = RequestMethod.GET)
 	public 	ModelAndView  listPeople(Map<String, Object> map) {
 		logger.debug("SalesforceController:List");
-		ModelAndView listModelAndView = new ModelAndView("salesforce");
-		map.put("person", new SalesforceUser());
-		map.put("peopleList", personService.listPeople());
+		ModelAndView listModelAndView = new ModelAndView("salesforcelist");
+		//map.put("person", new SalesforceUser());
+		//map.put("peopleList", personService.listPeople());
 
-		//listModelAndView.addObject("salesforceusers", personService.listPeople());*/
+		listModelAndView.addObject("salesforceusers", personService.listPeople());
 		return listModelAndView;
 	}
 

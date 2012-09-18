@@ -1,20 +1,35 @@
 package org.megam.mammoth.prov.info;
 
+import java.io.Serializable;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SalesforceUser {
-	@Autowired
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SalesforceUser implements Serializable {
+	@JsonProperty(value = "UserName")
 	String UserName;
+	@JsonProperty(value = "FirstName")
 	String FirstName;
+	@JsonProperty(value = "Email")
 	String Email;
+	@JsonProperty(value = "Alias")
 	String Alias;
+	@JsonProperty(value = "ProfileId")
 	String ProfileId;
+	@JsonProperty(value = "LastName")
 	String LastName;
+	@JsonProperty(value = "TimeZoneKey")
 	String TimeZoneSidKey;
+	@JsonProperty(value = "LocaleSideKey")
 	String LocaleSidKey;
+	@JsonProperty(value = "EmailEncodingKey")
 	String EmailEncodingKey;
+	@JsonProperty(value = "LanguageLocaleKey")
 	String LanguageLocaleKey;
 
+	
 	public String getUserName() {
 		return UserName;
 	}
