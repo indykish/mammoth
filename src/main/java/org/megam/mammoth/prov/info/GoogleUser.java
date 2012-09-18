@@ -4,22 +4,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GoogleUser {
+
+	final Logger logger = LoggerFactory.getLogger(GoogleUser.class);
 	
-	String userName;
-	String givenName;
-	String familyName;
-	String password;
-	String adminEmail;
-	String adminPassword;
-	String Domain;
+	private String userName;
+	private String givenName;
+	private String familyName;
+	private String password;
+	private String adminEmail;
+	private String adminPassword;
+	private String Domain;
+	private boolean admin;
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 	public String getDomain() {
 		return Domain;
 	}
 	public void setDomain(String domain) {
 		Domain = domain;
 	}
-	final Logger logger = LoggerFactory.getLogger(GoogleUser.class);
 	
 	public String getUserName() {
 		return userName;
@@ -60,7 +68,6 @@ public class GoogleUser {
 	public void setValue(String nextToken) {
 		
 		String[] st=nextToken.split("=");
-		logger.info("STRING!;;;;;;;;"+st[0]+"::::::::"+st[1]);
 		
 		if(st[0].equalsIgnoreCase("username")){
 			setUserName(st[1].trim());

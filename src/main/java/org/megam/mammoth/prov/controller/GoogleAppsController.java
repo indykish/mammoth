@@ -10,6 +10,7 @@ import javax.validation.Validator;
 
 import org.json.simple.JSONArray;
 import org.megam.mammoth.prov.googleapps.service.GoogleAppsService;
+import org.megam.mammoth.prov.googleapps.service.GoogleAppsServiceImpl;
 import org.megam.mammoth.prov.info.GoogleUser;
 import org.megam.mammoth.prov.info.SalesforceUser;
 import org.slf4j.Logger;
@@ -32,64 +33,62 @@ import com.google.gdata.data.appsforyourdomain.AppsForYourDomainException;
 import com.google.gdata.util.ServiceException;
 import com.google.gson.Gson;
 
-
 @Controller
 public class GoogleAppsController {
 
 	@Autowired
 	private GoogleAppsService googleserv;
+
 	Validator validator;
 
 	final Logger logger = LoggerFactory.getLogger(GoogleAppsController.class);
-	GoogleUser people=new GoogleUser(); 
+
 	@Autowired
 	public GoogleAppsController(Validator validator) {
 		this.validator = validator;
 	}
+	
+	@RequestMapping("/googleapps")
+	public @ResponseBody ModelAndView index() {
+		return new ModelAndView("googleapps");
+	}
 
 	@RequestMapping(value = "/googleapps/create", method = RequestMethod.POST)
 	public String create(@RequestBody String dat) {
-         logger.info("DATA"+dat);
-         
-         
-        StringTokenizer stk =new StringTokenizer(dat, "&");
-        
-         while(stk.hasMoreTokens()){
-        	 
-        	 String strp =stk.nextToken();
-        	 logger.info("STRP......"+strp);
-             people.setValue(strp);        	  
-         }      
-        
-         logger.info("PEOPLE STRING>>>>>>>>>>>>"+people.toString());
-         
-		googleserv.addUser(people);
-		
-		return "redirect:/googleapps/list";
+		GoogleUser people = new GoogleUser();
 
+		StringTokenizer stk = new StringTokenizer(dat, "&");
+
+		while (stk.hasMoreTokens()) {
+			String strp = stk.nextToken();
+			people.setValue(strp);
+		}
+
+		googleserv.addUser(people);
+		return "redirect:/googleapps/list";
 	}
 
 	@RequestMapping(value = "/googleapps/list")
-	public@ResponseBody String listPeople(Map<String, Object> map) throws AppsForYourDomainException, ServiceException, IOException {
-        //GoogleUser data=new GoogleUser();
+	public ModelAndView listPeople(Map<String, Object> map) {
+		
+		ModelAndView listModelAndView = new ModelAndView("googleappslist");
 		map.put("person", new GoogleUser());
-		map.put("peopleList", googleserv.listPeople(people));
+		GoogleUser temp = new GoogleUser();
+		temp.setAdminEmail("admin@megam.co.in");
+		temp.setAdminPassword("don#1ald");
+		temp.setDomain("megam.co.in");
+		map.put("peopleList", googleserv.listUser(temp));
 
-		return "googleappslist";
+		return listModelAndView;
 	}
 
-	@RequestMapping("/googleapps/delete/{personId}")
-	public String deleteUser(@PathVariable("personId") String personId) {
+	@RequestMapping("/googleapps/delete/{userName}")
+	public String deleteUser(@PathVariable("userName") String userName) {
+		GoogleUser temp = new GoogleUser();
+		temp.setUserName(userName);
+		googleserv.removeUser(temp);
 
-		googleserv.removePerson(personId);
-
-		return "redirect:/people/";
+		return "redirect:/googleapps/list";
 	}
-
-	@RequestMapping("/googleapps")
-	public @ResponseBody
-	ModelAndView sfindex() {
-
-		return new ModelAndView("googleapps");
-	}
+	
 }
