@@ -30,7 +30,7 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 		AppsForYourDomainClient apclient;
 		try {
 			apclient = new AppsForYourDomainClient(data.getAdminEmail(),
-					data.getAdminPassword(), data.getDomain());
+					data.getAdminPassword(), data.getDomainName());
 			apclient.createUser(data.getUserName(), data.getGivenName(), data.getFamilyName(), data.getPassword());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -48,7 +48,7 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 		AppsForYourDomainClient apclient;
 		try {
 			apclient = new AppsForYourDomainClient(data.getAdminEmail(),
-					data.getAdminPassword(), data.getDomain());
+					data.getAdminPassword(), data.getDomainName());
 			userFeed = apclient.retrieveAllUsers();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -78,7 +78,7 @@ public class GoogleAppsServiceImpl implements GoogleAppsService {
 		AppsForYourDomainClient apclient;
 		try {
 			apclient = new AppsForYourDomainClient(data.getAdminEmail(),
-					data.getAdminPassword(), data.getDomain());
+					data.getAdminPassword(), data.getDomainName());
 			apclient.deleteUser(data.getUserName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
