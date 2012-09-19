@@ -79,7 +79,8 @@
 		$('#loading').fadeOut();
 		spinner.stop();
 	});
-
+	
+	
 	$(document).ready(function() {
 		$('form').submit(function(event) {
 			var dat = $(this).serializeArray();

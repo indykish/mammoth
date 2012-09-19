@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <ul class="nav nav-tabs" id="sfmenu">
-    <li class="active">
-    <a href="/mammoth/sforce">Create</a>
+    <li>
+    <a href="/mammoth/google">Create</a>
     </li>
-    <li><a href="/mammoth/sforcelist">List</a></li>    
+    <li class="active"><a href="/mammoth/googlelist">List</a></li>    
     </ul>

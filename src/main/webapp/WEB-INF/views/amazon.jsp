@@ -302,8 +302,8 @@
 			type : "POST",
 			dataType : "json",
 			async : true,
-			url : "./run",
-			data : JSON.stringify("ami-00067852"),
+			url : "./cloudidentity/run",
+			data : "ami-00067852",
 			contentType : 'application/json',
 			beforeSend : function() {
 			},
@@ -322,14 +322,14 @@
 	}
 
 	function startTheInstance() {
-		var instid = "i-82ce88d6";
+		
 
 		$.ajax({
 			type : "POST",
 			dataType : "json",
 			async : true,
-			url : "./start",
-			data : instid,
+			url : "./cloudidentity/start",
+			data : "i-82ce88d6",
 			beforeSend : function() {
 			},
 			success : function(data) {
@@ -348,14 +348,14 @@
 	}
 
 	function stopTheInstance() {
-		var instid = "i-82ce88d6";
+		
 
 		$.ajax({
 			type : "POST",
 			dataType : "json",
 			async : true,
 			url : "./cloudidentity/stop",
-			data : instid,
+			data : "i-82ce88d6",
 			beforeSend : function() {
 			},
 			success : function(data) {
@@ -379,8 +379,8 @@
 			type : "GET",
 			dataType : "json",
 			async : true,
-			url : "/mammoth/cloudidentity/log/{instid}",
-
+			url : "/mammoth/cloudidentity/log/{" + selectedInstanceId + "}",
+			
 			beforeSend : function() {
 			},
 			success : function(data) {

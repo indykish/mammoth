@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,14 @@ public class SalesforceController {
 	@RequestMapping(value = "/salesforce")
 	public String auth() {
 		return "salesforce_auth";
+	}
+	@RequestMapping(value = "/sforce")
+	public String create() {
+		return "redirect:/salesforce/home";
+	}
+	@RequestMapping(value = "/sforcelist")
+	public String list() {
+		return "redirect:/salesforce/list";
 	}
 
 	@RequestMapping(value = "/salesforce/home", method = RequestMethod.GET)
@@ -67,9 +76,9 @@ public class SalesforceController {
 		return "redirect:/salesforce/list";
 	}
 
-	@RequestMapping(value= "/salesforce/delete/{personId}", method = RequestMethod.POST)
-	public String deletePerson(@PathVariable("personId") String personId) {
-		personService.removePerson(personId);
+	@RequestMapping(value= "/salesforce/delete/{personid}", method = RequestMethod.POST)
+	public String deletePerson(@PathVariable String personid) {
+		personService.removePerson(personid);
 		return "redirect:/salesforce/list";
 	}
 

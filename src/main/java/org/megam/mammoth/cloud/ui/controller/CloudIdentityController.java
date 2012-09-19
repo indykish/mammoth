@@ -45,7 +45,6 @@ public class CloudIdentityController<C> {
 	}
 
 	public @RequestMapping(value = "/cloudidentity", method = RequestMethod.GET)
-	@ResponseBody
 	String myhome() {
 		return "amazon";
 	}
@@ -78,7 +77,7 @@ public class CloudIdentityController<C> {
 	String list(
 			@Valid @RequestParam(value = "instid", required = false) String instid) {
 		ComputeCloudOutput<C> output = null;
-
+		logger.info("::::::::::::IN START List"+instid);
 		try {
 
 			output = engine.list(new ComputeCloudInput<String>(instid));
@@ -94,9 +93,9 @@ public class CloudIdentityController<C> {
 	@ResponseBody
 	String log(
 			@Valid @RequestParam(value = "instid", required = false) String instid) {
-		logger.info("IN LIST METHOD...................." + instid);
+		
 		ComputeCloudOutput<C> output = null;
-
+		logger.info("IN LIST METHOD...................." + instid);
 		try {
 
 			output = engine.log(new ComputeCloudInput<String>(instid));
@@ -110,7 +109,9 @@ public class CloudIdentityController<C> {
 
 	@RequestMapping(value = "/cloudidentity/up", method = RequestMethod.GET)
 	public @ResponseBody
-	String up(@Valid @RequestBody String instid) {
+	String up() {
+		String instid="ami-00067852";
+		logger.info("::::::::::::IN UP IMAGE"+instid);
 		ComputeCloudOutput<C> output = null;
 		try {
 			output = engine.up(new ComputeCloudInput<String>(instid));
@@ -124,6 +125,7 @@ public class CloudIdentityController<C> {
 	@RequestMapping(value = "/cloudidentity/start", method = RequestMethod.POST)
 	public @ResponseBody
 	String start(@Valid @RequestBody String instid) {
+		logger.info("::::::::::::IN START IMAGE"+instid);
 		ComputeCloudOutput<C> output = null;
 		try {
 			output = engine.start(new ComputeCloudInput<String>(instid));

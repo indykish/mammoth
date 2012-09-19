@@ -12,14 +12,16 @@
 				<li><a href="/mammoth/sugarcrm">SugarCRM<i class="icon-chevron-right"></i></a></li>
 				<li class="nav-header">Compute(Amazon)		
 				</li>
-				<li><a href="/mammoth/cloudidentity">Cloud - Alive ?
+				<li><a href="/mammoth/cloudidentity">AWS EC2<i class="icon-chevron-right"></i></a></li>
+				<li><a href="#" id="alive" onclick="isComputeEngineUp()">Cloud - Alive ?
 				<i	class="icon-chevron-right"></i></a></li>
-				<li><a href="/mammoth/cloudidentity">Describe<i
+				<li><a href="#" id="describe" onclick="printInfo()">Describe<i
 						class="icon-chevron-right"></i></a></li>
-				<li><a href="/mammoth/cloudidentity">List<i
+				<li><a href="#" id="list" onclick="listAllRawIdentity()">List<i
 						class="icon-chevron-right"></i></a></li>
-				<li><a href="/mammoth/cloudidentity">Log<i
+				<li><a href="#" id="log" onclick="log()">Log<i
 						class="icon-chevron-right"></i></a></li>
+				
 						
 			</ul>
 		</div>

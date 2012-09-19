@@ -325,8 +325,7 @@ public class AmazonEC2Engine<C extends Object> extends
 
 		StartInstancesRequest start(ComputeCloudInput<T> input) {
 			return new StartInstancesRequest()
-					.withInstanceIds(new String[] { ((CloudInstance) input
-							.get()).getInstanceId() });
+					.withInstanceIds(new String[] { ((CloudInstance) input.get()).getInstanceId() });
 		}
 
 		StopInstancesRequest stop(ComputeCloudInput<T> input) {

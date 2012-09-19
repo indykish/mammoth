@@ -4,7 +4,7 @@
 
 <ul class="nav nav-tabs" id="sfmenu">
     <li class="active">
-    <a href="/mammoth/sforce">Create</a>
+    <a href="/mammoth/google">Create</a>
     </li>
-    <li><a href="/mammoth/sforcelist">List</a></li>    
+    <li><a href="/mammoth/googlelist">List</a></li>    
     </ul>

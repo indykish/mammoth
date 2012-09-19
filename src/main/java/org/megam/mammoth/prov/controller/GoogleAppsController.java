@@ -39,7 +39,17 @@ public class GoogleAppsController {
 		map.put("user", new GoogleUser());
 		return "googleapps";
 	}
-
+	@RequestMapping("/google")
+	public String create(Map<String, Object> map) {
+		map.put("user", new GoogleUser());
+		return "googleapps";
+	}
+	@RequestMapping("/googlelist")
+	public String list(Map<String, Object> map) {
+		map.put("user", new GoogleUser());
+		return "redirect:/googleapps/list";
+	}
+		
 	@RequestMapping(value = "/googleapps/create", method = RequestMethod.POST)
 	public String createPerson(@ModelAttribute("user") GoogleUser user,
 			BindingResult result) {
@@ -48,14 +58,14 @@ public class GoogleAppsController {
 		/**
 		 * if (result.hasErrors()) { return "petForm"; }
 		 **/
-		googleserv.addUser(user);
-		/** TO-DO if successful, only then **/
+			googleserv.addUser(user);
+		/** TO-DO if successful, only then **/		
 		return "redirect:/googleapps/list";
 	}
 
 	@RequestMapping(value = "/googleapps/list")
 	public ModelAndView listPeople(Map<String, Object> map) {
-
+        
 		ModelAndView listModelAndView = new ModelAndView("googleappslist");
 		map.put("person", new GoogleUser());
 		GoogleUser temp = new GoogleUser();
@@ -63,7 +73,7 @@ public class GoogleAppsController {
 		temp.setAdminPassword("don#1ald");
 		temp.setDomainName("megam.co.in");
 		map.put("peopleList", googleserv.listUser(temp));
-
+		logger.debug("GoogleAppsController:List -");
 		return listModelAndView;
 	}
 
