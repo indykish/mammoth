@@ -38,14 +38,7 @@ public class SalesforceController {
 	public String auth() {
 		return "salesforce_auth";
 	}
-	@RequestMapping(value = "/sforce")
-	public String create() {
-		return "redirect:/salesforce/home";
-	}
-	@RequestMapping(value = "/sforcelist")
-	public String list() {
-		return "redirect:/salesforce/list";
-	}
+	
 
 	@RequestMapping(value = "/salesforce/home", method = RequestMethod.GET)
 	public String home(Map<String, Object> map) {

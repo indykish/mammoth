@@ -19,7 +19,6 @@
 				
 			</div>
 			<div class="span3">
-				<h3>Come on we will help you...</h3>
 				<div id="message_display">Read our blog links for more information. Feel free to give a try. Refer our
 					documentation from <a href="http://blog.megam.co/">http://blog.megam.co</a>(or) <a href="#">www.megam.co</a></div>
 			</div>			

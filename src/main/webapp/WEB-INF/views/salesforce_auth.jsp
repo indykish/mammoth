@@ -7,6 +7,6 @@
 	<h1>Sign in</h1>
 	<div class="span5">
 		<a href="./salesforce/home"
-			class="btn btn-primary btn-large btn-block">Click here to sign in</a>
+			class="btn btn-primary btn-large">Click here to sign in</a>
 	</div>
 </div>
