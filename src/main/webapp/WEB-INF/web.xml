@@ -55,6 +55,10 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/googleapps/list</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/SalesforceRest/create</url-pattern>
+	</servlet-mapping>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>

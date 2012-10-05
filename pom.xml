@@ -252,7 +252,23 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
 			<version>1.41.3</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+	<groupId>commons-httpclient</groupId>
+	<artifactId>commons-httpclient</artifactId>
+	<version>3.1</version>
+   </dependency>
+   <dependency>
+    <groupId>org.apache.wink</groupId>
+    <artifactId>wink-client</artifactId>
+    <version>1.2.0-incubating</version>
+</dependency>
+				
 	</dependencies>
 	<repositories>
 		<repository>
