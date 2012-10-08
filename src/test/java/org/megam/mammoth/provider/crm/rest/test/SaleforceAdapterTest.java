@@ -3,6 +3,7 @@ package org.megam.mammoth.provider.crm.rest.test;
 import static org.junit.Assert.*;
 
 import org.apache.wink.client.RestClient;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.wink.client.Resource;
@@ -12,14 +13,14 @@ import com.amazonaws.util.json.JSONObject;
 public class SaleforceAdapterTest {
 
 	private String accessToken = null;
+	String response;
 
-	@Test
+	@Before
 	public void testGetOAuthToken() {
 		RestClient rc = new RestClient();
 		Resource resource = rc
-				.resource("http://localhost:8080/mammoth/salesforce_connector");
-		String response = resource.contentType("text/plain")
-				.accept("text/plain").post(String.class, "foo");
+				.resource("http://localhost:8080/mammoth/provider/crm");
+		response = resource.accept("application/json").get(String.class);
 		System.out.println(response);
 
 		JSONObject json = null;
@@ -35,12 +36,12 @@ public class SaleforceAdapterTest {
 	@Test
 	public void testCreateUser() {
 
+		System.out.println(response);
 		RestClient rc = new RestClient();
 		Resource resource = rc
-				.resource("http://localhost:8080/mammoth/salesforce_connector/create");
-		String response = resource.contentType("text/plain")
-				.accept("text/plain").post(String.class, "foo");
-		System.out.println(response);
+				.resource("http://localhost:8080/mammoth/provider/crm");
+		String response1 = resource.contentType("application/json").accept("application/json").post(String.class, response);
+		System.out.println(response1);
 
 	}
 

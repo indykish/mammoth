@@ -13,7 +13,7 @@ public class SalesforceUser {
 
 	@JsonProperty(value = "Id")
 	private String id;
-
+		
 	@JsonProperty(value = "Username")
 	private String userName;
 

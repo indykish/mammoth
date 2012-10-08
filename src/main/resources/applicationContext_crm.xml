@@ -17,7 +17,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 	<!-- DispatcherServlet Context: defines this servlet's request-processing
 	infrastructure -->
 	<context:annotation-config />
-	<context:component-scan base-package="org.megam.mammoth" />
+	<context:component-scan base-package="org.megam.mammoth.provider" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving

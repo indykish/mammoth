@@ -2,23 +2,36 @@ package org.megam.mammoth.provider.crm.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validator;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.megam.mammoth.demo.controller.SalesforceController;
+import org.megam.mammoth.provider.crm.info.salesforcecrm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
@@ -27,6 +40,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 @Controller
 @RequestMapping("/provider/crm")
@@ -36,12 +50,13 @@ public class CRMController {
 	private Validator validator;
 	private static final String clz ="CRMController:";
 	private final Logger logger = Logger.getLogger(CRMController.class);
+	
 
 	@Autowired
 	public CRMController(Validator validator) {
 		this.validator = validator;
 	}
-
+    
 	@RequestMapping(method = RequestMethod.GET,produces="application/json")
 	public @ResponseBody
 	String getOAuth() {
@@ -60,101 +75,131 @@ public class CRMController {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_oauth_url);
 		
-		/** Add the name value pairs as needed. Refer the links below.
-		 * http://hc.apache.org/httpcomponents-client-ga/quickstart.html
-		 * http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/index.html
-		 *  List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-		nvps.add(new BasicNameValuePair("username", "vip"));
-		nvps.add(new BasicNameValuePair("password", "secret"));
-		HttpResponse response2 = httpclient.execute(httpPost);
-
+		 /*Add the name value pairs as needed. Refer the links below.
+		 http://hc.apache.org/httpcomponents-client-ga/quickstart.html
+		 http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/index.html*/
+		 List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		nvps.add(new BasicNameValuePair("grant_type", grant_type));
+		nvps.add(new BasicNameValuePair("client_id", clientId));
+		nvps.add(new BasicNameValuePair("client_secret", clientSecret));
+		nvps.add(new BasicNameValuePair("username", username));
+		nvps.add(new BasicNameValuePair("password", password));
 		try {
-		    System.out.println(response2.getStatusLine());
+			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HttpResponse response2;
+		String output = null;
+		logger.info("Get OAuth"+httpPost);
+		try {
+			response2 = httpclient.execute(httpPost);
+			
+			System.out.println(response2.getStatusLine());
 		    HttpEntity entity2 = response2.getEntity();
 		    // do something useful with the response body
 		    // and ensure it is fully consumed
-		    EntityUtils.consume(entity2);
-		} finally {
+		    //EntityUtils.consume(entity2);
+		    output=EntityUtils.toString(entity2);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}       
+		
+		 finally {
 		    httpPost.releaseConnection();
-		} **/
+		} 
+		
+		
 
-		post.addParameter("grant_type", grant_type);
-		post.addParameter("client_id", clientId);
-		post.addParameter("client_secret", clientSecret);
-		post.addParameter("username", username);
-		post.addParameter("password", password);
 
-		String responseBody = null;
-		try {
-			httpclient.executeMethod(post);
-			responseBody = post.getResponseBodyAsString();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		logger.info(clz+"getOAuth GET end."+output);
 
-		logger.info(clz+"getOAuth GET end.");
-
-		return responseBody;
+		return output;
 	}
-
+    
 	@RequestMapping(method = RequestMethod.POST,consumes="application/json")
 	public @ResponseBody
 	String createUser(@RequestBody String access_stuff) {
-		logger.info(clz+"createUser : POST start.");
+		logger.info(clz+"createUser : POST start."+access_stuff);
 		
 		/* Convert the access_stuff using Gson to an object, grab the strings as necessary */
+		
+		
 		 String issuedAt;
-		 String accessToken = null;
-		 String instanceurl ="";
+		 String accessToken; 
+		 String instanceurl = null;
 		 String id;
 		 String signature;
-
-		String url = instanceurl + "/services/data/v25.0/sobjects/User/";
-
-		PostMethod m = new PostMethod(url);
-		m.setRequestHeader("Authorization", "OAuth " + accessToken);
-		Map<String, Object> accUpdate = new HashMap<String, Object>();
-		accUpdate.put("Username", " ponti@gmail.com");
-		accUpdate.put("FirstName", "pan");
-		accUpdate.put("Email", "raja.pandiya@megam.co.in");
-		accUpdate.put("Alias", "PRam");
-		accUpdate.put("ProfileId", "00e90000000Gmi2");
-		accUpdate.put("LastName", "Diya");
-		accUpdate.put("TimeZoneSidKey", "America/Los_Angeles");
-		accUpdate.put("LocaleSidKey", "en_US");
-		accUpdate.put("EmailEncodingKey", "UTF-8");
-		accUpdate.put("LanguageLocaleKey", "en_US");
+		 logger.info(clz+"createUser : POST start2222222.");
+		 Gson gson = new GsonBuilder().create();
+		    salesforcecrm scrm = gson.fromJson(access_stuff, salesforcecrm.class);
+		    
+		    accessToken=scrm.getAccess_token();
+		    instanceurl=scrm.getInstance_url();
+		    logger.info("ACCESTOKEN & INSTANCE URL"+accessToken+""+instanceurl);
+		 
+		String salesforce_create_user_url = instanceurl + "/services/data/v25.0/sobjects/User/";
 		
-		ObjectMapper mapper = new ObjectMapper();
-
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
+		
+		httpPost.addHeader("Authorization", "OAuth " + accessToken);
+		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		nvps.add(new BasicNameValuePair("Username", scrm.getUsername()));
+		nvps.add(new BasicNameValuePair("FirstName", scrm.getFirstName()));
+		nvps.add(new BasicNameValuePair("Email", scrm.getEmail()));
+		nvps.add(new BasicNameValuePair("Alias", scrm.getAlias()));
+		nvps.add(new BasicNameValuePair("ProfileId", scrm.getProfileId()));
+		nvps.add(new BasicNameValuePair("LastName", scrm.getLastName()));
+		nvps.add(new BasicNameValuePair("TimeZoneSidKey", scrm.getTimeZoneSidKey()));
+		nvps.add(new BasicNameValuePair("LocaleSidKey", scrm.getLocaleSidKey()));
+		nvps.add(new BasicNameValuePair("EmailEncodingKey", scrm.getEmailEncodingKey()));
+		nvps.add(new BasicNameValuePair("LanguageLocaleKey", scrm.getLanguageLocaleKey()));
+		
 		try {
-			m.setRequestEntity(new StringRequestEntity(mapper
-					.writeValueAsString(accUpdate), "application/json", "UTF-8"));
-		} catch (JsonGenerationException e1) {
+			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+			//httpPost.
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JsonMappingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		HttpClient c = new HttpClient();
-		String output = "";
-		try {
-			int return_code = c.executeMethod(m);
-		} catch (HttpException e) {
 			e.printStackTrace();
+		}
+		
+		HttpResponse response2;
+		String output = null;
+		try {
+			response2 = httpclient.execute(httpPost);
+			
+			System.out.println(response2.getStatusLine());
+		    HttpEntity entity2 = response2.getEntity();
+		    // do something useful with the response body
+		    // and ensure it is fully consumed
+		    //EntityUtils.consume(entity2);
+		    output=EntityUtils.toString(entity2);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return e.toString();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+			return e.toString();
+		}       
 		
-		logger.info(clz+"createUser : POST end.");
+		 finally {
+		    httpPost.releaseConnection();
+		} 
+		
+		
+
+
+		logger.info(clz+"CreateUser GET end."+output);
+
 		return output;
 	}
 
