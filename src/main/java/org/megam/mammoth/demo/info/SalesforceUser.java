@@ -1,4 +1,4 @@
-package org.megam.mammoth.prov.info;
+package org.megam.mammoth.demo.info;
 
 import java.io.Serializable;
 

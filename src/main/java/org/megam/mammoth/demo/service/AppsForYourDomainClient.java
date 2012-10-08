@@ -1,4 +1,4 @@
-package org.megam.mammoth.prov.googleapps.service;
+package org.megam.mammoth.demo.service;
 
 /* Copyright (c) 2008 Google Inc.
 *

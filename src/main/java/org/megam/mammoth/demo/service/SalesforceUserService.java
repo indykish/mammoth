@@ -1,11 +1,11 @@
-package org.megam.mammoth.prov.salesforce.service;
+package org.megam.mammoth.demo.service;
 
 import java.util.List;
 
-import org.megam.mammoth.prov.info.SalesforceUser;
+import org.megam.mammoth.demo.info.SalesforceUser;
 
 
-public abstract interface UserService {
+public abstract interface SalesforceUserService {
 
 	public abstract List<SalesforceUser> listPeople();
 

@@ -1,8 +1,8 @@
-package org.megam.mammoth.prov.salesforce.service;
+package org.megam.mammoth.demo.service;
 
 import java.util.List;
 
-import org.megam.mammoth.prov.info.SalesforceUser;
+import org.megam.mammoth.demo.info.SalesforceUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import com.force.sdk.oauth.context.ForceSecurityContextHolder;
 import com.force.sdk.oauth.context.SecurityContext;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class SalesforceUserServiceImpl implements SalesforceUserService{
 
 	HttpRequest request = new HttpRequest();
 
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
 	public String Token;
 
-	final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	final Logger logger = LoggerFactory.getLogger(SalesforceUserServiceImpl.class);
 
 	public void addPerson(SalesforceUser person) {
 		getForceApi().createSObject("User", person);

@@ -1,4 +1,4 @@
-package org.megam.mammoth.prov.info;
+package org.megam.mammoth.demo.info;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

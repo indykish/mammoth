@@ -1,8 +1,8 @@
-package org.megam.mammoth.prov.googleapps.service;
+package org.megam.mammoth.demo.service;
 
 import java.util.List;
 
-import org.megam.mammoth.prov.info.GoogleUser;
+import org.megam.mammoth.demo.info.GoogleUser;
 import org.springframework.stereotype.Service;
 
 @Service

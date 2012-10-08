@@ -1,12 +1,12 @@
-package org.megam.mammoth.prov.controller;
+package org.megam.mammoth.demo.controller;
 
 import java.util.Map;
 
 import javax.validation.Validator;
 
-import org.megam.mammoth.prov.info.SalesforceUser;
-import org.megam.mammoth.prov.salesforce.service.UserService;
-import org.megam.mammoth.prov.salesforce.service.UserServiceImpl;
+import org.megam.mammoth.demo.info.SalesforceUser;
+import org.megam.mammoth.demo.service.SalesforceUserService;
+import org.megam.mammoth.demo.service.SalesforceUserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SalesforceController {
 
-	final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	final Logger logger = LoggerFactory.getLogger(SalesforceUserServiceImpl.class);
 
 	@Autowired
-	private UserService personService;
+	private SalesforceUserService personService;
 
 	private Validator validator;
 

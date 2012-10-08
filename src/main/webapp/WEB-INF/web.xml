@@ -21,9 +21,22 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>crm</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:applicationContext_crm.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spring_connectors</servlet-name>
+		<url-pattern>/connectors</url-pattern>
 	</servlet-mapping>
 	<!-- TO-DO : this is stupid. Don't remove this line. Why not replace it with a wildcard., why do we need this. read the servlet 3.0 api 
 		about url-pattern to tweak this. -->
@@ -56,8 +69,8 @@
 		<url-pattern>/googleapps/list</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/SalesforceRest/create</url-pattern>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/*</url-pattern>
 	</servlet-mapping>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>

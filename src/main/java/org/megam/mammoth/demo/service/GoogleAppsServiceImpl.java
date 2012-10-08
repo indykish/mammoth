@@ -1,4 +1,4 @@
-package org.megam.mammoth.prov.googleapps.service;
+package org.megam.mammoth.demo.service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.validation.Validator;
 
-import org.megam.mammoth.prov.info.GoogleUser;
+import org.megam.mammoth.demo.info.GoogleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
