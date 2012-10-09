@@ -35,14 +35,26 @@ public class SaleforceAdapterTest {
 
 	@Test
 	public void testCreateUser() {
-
+       /*
 		System.out.println(response);
 		RestClient rc = new RestClient();
 		Resource resource = rc
 				.resource("http://localhost:8080/mammoth/provider/crm");
 		String response1 = resource.contentType("application/json").accept("application/json").post(String.class, response);
 		System.out.println(response1);
-
+       */ 
 	}
+	
+	/*@Test
+	public void testListUser(){
+  		
+		System.out.println(response);
+		RestClient rc = new RestClient();
+		Resource resource = rc
+				.resource("http://localhost:8080/mammoth/provider/crm/list");
+		String response1 = resource.accept("application/json").get(String.class);
+		System.out.println(response1);
+		
+	}*/
 
 }

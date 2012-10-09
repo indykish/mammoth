@@ -5,7 +5,7 @@ import com.amazonaws.util.json.JSONObject;
 
 
 
-public class salesforcecrm {
+public class Salesforcecrm {
 	
 	private String Username;
 	private String FirstName;
