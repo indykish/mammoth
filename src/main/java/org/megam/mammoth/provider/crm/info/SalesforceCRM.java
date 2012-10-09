@@ -1,11 +1,8 @@
 package org.megam.mammoth.provider.crm.info;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
 
 
-
-public class salesforcecrm {
+public class SalesforceCRM {
 	
 	private String Username;
 	private String FirstName;
@@ -19,6 +16,8 @@ public class salesforcecrm {
 	private String LanguageLocaleKey;
 	private String access_token;
 	private String instance_url;
+	
+	
 	public String getUsername() {
 		return Username;
 	}
@@ -91,12 +90,9 @@ public class salesforcecrm {
 	public void setInstance_url(String instance_url) {
 		this.instance_url = instance_url;
 	}
-	
-	
-	public String toString(){
 		
-		return(getAccess_token()+""+getAlias()+""+getEmail()+""+getEmailEncodingKey()+""+getFirstName()+""+getInstance_url()+""+getLanguageLocaleKey()+""+getLastName()+""+getLocaleSidKey()+""+getProfileId()+""+getLocaleSidKey()+""+getUsername());
+	public String toString(){		
+		return(getAccess_token()+","+getAlias()+","+getEmail()+","+getEmailEncodingKey()+","+getFirstName()+","+getInstance_url()+","+getLanguageLocaleKey()+","+getLastName()+","+getLocaleSidKey()+","+getProfileId()+","+getLocaleSidKey()+","+getUsername());
 	}
-	
 	
 }
