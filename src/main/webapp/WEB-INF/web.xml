@@ -33,8 +33,7 @@
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	
+	</servlet-mapping>	
 	<!-- TO-DO : this is stupid. Don't remove this line. Why not replace it with a wildcard., why do we need this. read the servlet 3.0 api 
 		about url-pattern to tweak this. -->
 	<servlet-mapping>

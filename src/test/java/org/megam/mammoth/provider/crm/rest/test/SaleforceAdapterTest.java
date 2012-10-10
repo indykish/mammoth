@@ -17,7 +17,7 @@ public class SaleforceAdapterTest {
 
 	@Before
 	public void testGetOAuthToken() {
-		RestClient rc = new RestClient();
+	RestClient rc = new RestClient();
 		Resource resource = rc
 				.resource("http://localhost:8080/mammoth/provider/crm");
 		response = resource.accept("application/json").get(String.class);
@@ -35,7 +35,6 @@ public class SaleforceAdapterTest {
 
 	@Test
 	public void testCreateUser() {
-
 		System.out.println(response);
 		RestClient rc = new RestClient();
 		Resource resource = rc
