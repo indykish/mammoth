@@ -29,7 +29,7 @@
 			<param-value>classpath:applicationContext_crm.xml</param-value>
 		</init-param>
 		<load-on-startup>2</load-on-startup>
-	</servlet>
+	</servlet>	
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
