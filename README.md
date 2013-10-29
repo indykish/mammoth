@@ -1,5 +1,8 @@
-mammoth
+mammoth
 =======
+
+This project is killed in favor of [deccanplato](https://github.com/indykish/deccanplato.git). 
+===
 
 RESTful cloud identity provisioner. Provisions a cloud identity instance running OpenAM in Amazon EC2 in a multi tenant environment.
 
@@ -12,7 +15,7 @@ Build with:
 Then run with:
 
     $ java -jar target/dependency/webapp-runner.jar target/*.war
-
+
 ## Running on Heroku
 
 Clone this project locally:
